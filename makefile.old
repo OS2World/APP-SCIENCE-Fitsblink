@@ -1,0 +1,194 @@
+#  CFITSIO LIBRARY
+#
+#  Specify the location of the cfitsio include file
+FITSIO_H=-I$(HOME)/lib/x11/cfits142
+#  Specify the location of the fitsio library
+FITSIO_L=-L$(HOME)/lib/x11/cfits142
+
+#  X11 LIBRARY
+# 
+#  Directory of X library includes
+X11_INCLUDE=-I$(HOME)/include/X11/
+#  Directory of X libraries
+X11_LIBRARY=-L$(HOME)/lib
+
+#  XFORMS LIBRARY
+#
+#  Specify the location of the  XFORMS include file
+FORMS_H=-Ie:/xfree86/include
+#  Directory of XFORMS include file
+FORMS_L=-Le:/xfree86/include
+
+#  INSTALLATION
+#
+#  Specify a directory for the program
+INSTALL_DIR=$(HOME)/bin
+#  Specify the location and name of the Fitsblink documentation
+FITSBLINK_DOC=$(HOME)/fitsblink3/doc
+
+CC = -gcc  -Zexe -Zmtd 
+CFLAGS = -c -ansi -Wall  -O2 -I$(HOME)/local/include $(FITSIO_H) $(FORMS_H) 
+
+all: fitsblink
+
+blink.o: blink.c formblink.h functs.h structs.h consts.h
+	$(CC) $(CFLAGS) blink.c -o blink.o
+
+blinkgui.o: blinkgui.c formblink.h functs.h structs.h consts.h
+	$(CC) $(CFLAGS) -DBLINK_README_FILE=\"$(BLINK_README_FILE)\" blinkgui.c -o blinkgui.o
+
+imageacc.o: imageacc.c  functs.h structs.h consts.h
+	$(CC) $(CFLAGS) imageacc.c -o imageacc.o
+
+formblink.o: formblink.c formblink.h functs.h structs.h consts.h
+	$(CC) $(CFLAGS) formblink.c -o formblink.o
+
+fits.o: fits.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) fits.c -o fits.o
+
+error.o: error.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) error.c -o error.o
+
+parameters.o: parameters.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) parameters.c -o parameters.o
+
+midexposure.o: midexposure.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) midexposure.c -o midexposure.o
+
+parsecoor.o: parsecoor.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) parsecoor.c -o parsecoor.o
+
+options.o: options.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) options.c -o options.o
+
+report.o: report.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) report.c -o report.o
+
+message.o: message.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) message.c -o message.o
+
+astrometry.o: astrometry.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) astrometry.c -o astrometry.o
+
+catalogs.o: catalogs.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) catalogs.c -o catalogs.o
+
+match_stars.o: match_stars.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) match_stars.c -o match_stars.o
+
+mail.o: mail.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) mail.c -o mail.o
+
+newwcs.o: newwcs.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) newwcs.c -o newwcs.o
+
+showstar.o: showstar.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) showstar.c -o showstar.o
+
+settings.o: settings.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) settings.c -o settings.o
+
+noninteractive.o: noninteractive.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) noninteractive.c -o noninteractive.o
+
+telescope.o: telescope.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) telescope.c -o telescope.o
+
+time.o: time.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) time.c -o time.o
+
+median.o: median.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) median.c -o median.o
+
+#  read USNO 
+usno/readusno.o: usno/readusno.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) usno/readusno.c -o usno/readusno.o
+
+#  read GSC
+guide/readguide.o: guide/readguide.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) guide/readguide.c -o guide/readguide.o
+
+guide/gscfits.o: guide/gscfits.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) guide/gscfits.c -o guide/gscfits.o
+
+#  Star count files
+starcount/stetje.o: starcount/stetje.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) starcount/stetje.c -o starcount/stetje.o
+
+starcount/shadow.o: starcount/shadow.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) starcount/shadow.c -o starcount/shadow.o
+
+starcount/povprecja.o: starcount/povprecja.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) starcount/povprecja.c -o starcount/povprecja.o
+
+starcount/utilities.o: starcount/utilities.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) starcount/utilities.c -o starcount/utilities.o
+
+starcount/aperture.o: starcount/aperture.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) starcount/aperture.c -o starcount/aperture.o
+
+#  Field compare files
+field_compare/field_compare.o: field_compare/field_compare.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) field_compare/field_compare.c -o field_compare/field_compare.o
+
+field_compare/konstelacije.o: field_compare/konstelacije.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) field_compare/konstelacije.c -o field_compare/konstelacije.o
+
+field_compare/transrot.o: field_compare/transrot.c functs.h structs.h consts.h
+	$(CC) $(CFLAGS) field_compare/transrot.c -o field_compare/transrot.o
+
+
+clean:
+	rm *.o fitsblink
+
+fitsblink: imageacc.o blinkgui.o \
+	formblink.o fits.o imageacc.o blink.o error.o \
+	parameters.o midexposure.o parsecoor.o options.o report.o astrometry.o\
+        catalogs.o match_stars.o mail.o newwcs.o settings.o  noninteractive.o \
+	showstar.o telescope.o time.o median.o message.o \
+	usno/readusno.o guide/readguide.o guide/gscfits.o \
+	starcount/stetje.o starcount/shadow.o starcount/povprecja.o \
+	starcount/utilities.o starcount/aperture.o \
+	field_compare/field_compare.o field_compare/konstelacije.o \
+	field_compare/transrot.o 
+	$(CC) -o fitsblink imageacc.o blinkgui.o \
+	formblink.o fits.o blink.o error.o \
+	parameters.o midexposure.o parsecoor.o options.o report.o astrometry.o \
+	catalogs.o match_stars.o mail.o newwcs.o settings.o noninteractive.o \
+	showstar.o telescope.o time.o median.o message.o \
+	usno/readusno.o \
+        guide/readguide.o guide/gscfits.o \
+	starcount/stetje.o starcount/shadow.o starcount/povprecja.o \
+	starcount/utilities.o starcount/aperture.o  \
+	field_compare/field_compare.o field_compare/konstelacije.o \
+	field_compare/transrot.o \
+		-L$(HOME)/lib  $(FORMS_L) \
+	  -lforms $(X11_LIBRARY) -lX11 $(FITSIO_L) -llibcfitsio -lm
+
+static: imageacc.o blinkgui.o \
+	formblink.o fits.o imageacc.o blink.o error.o \
+	parameters.o midexposure.o parsecoor.o options.o report.o astrometry.o\
+        catalogs.o starcount/povprecja.o match_stars.o mail.o newwcs.o settings.o \
+	showstar.o noninteractive.o telescope.o time.o median.o message.o \
+	usno/readusno.o guide/readguide.o guide/gscfits.o \
+	starcount/stetje.o starcount/shadow.o starcount/povprecja.o \
+	starcount/utilities.o  starcount/aperture.o \
+	field_compare/field_compare.o field_compare/konstelacije.o \
+	field_compare/transrot.o 
+	$(CC) -o fitsblink-static imageacc.o blinkgui.o \
+	formblink.o fits.o blink.o error.o \
+	parameters.o midexposure.o parsecoor.o options.o  report.o astrometry.o \
+	catalogs.o match_stars.o mail.o newwcs.o settings.o noninteractive.o \
+	showstar.o telescope.o time.o message.o median.o \
+	usno/readusno.o \
+        guide/readguide.o guide/gscfits.o \
+	starcount/stetje.o starcount/shadow.o starcount/povprecja.o \
+	starcount/utilities.o starcount/aperture.o  \
+	field_compare/field_compare.o field_compare/konstelacije.o \
+	field_compare/transrot.o \
+	-static \
+	-L$(HOME)/lib   $(FORMS_L) \
+	-lforms $(X11_LIBRARY) -lX11 $(FITSIO_L) -llibcfitsio -lm
+
+
+

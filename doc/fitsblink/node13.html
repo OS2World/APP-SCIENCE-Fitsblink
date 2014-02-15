@@ -1,0 +1,777 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>12. Astrometry</TITLE>
+<META NAME="description" CONTENT="12. Astrometry">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node14.html">
+<LINK REL="previous" HREF="node12.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node14.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html274"
+ HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html271"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html265"
+ HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html273"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html275"
+ HREF="node14.html">13. Telescope and CCD</A>
+<B> Up:</B> <A NAME="tex2html272"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html266"
+ HREF="node12.html">11. Blinking</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html276"
+ HREF="node13.html#SECTION000131000000000000000">12.1 Detection of stars and other objects</A>
+<UL>
+<LI><A NAME="tex2html277"
+ HREF="node13.html#SECTION000131100000000000000">12.1.1 Parameters</A>
+<LI><A NAME="tex2html278"
+ HREF="node13.html#SECTION000131200000000000000">12.1.2 Star list format</A>
+<LI><A NAME="tex2html279"
+ HREF="node13.html#SECTION000131300000000000000">12.1.3 Loading a star list</A>
+<LI><A NAME="tex2html280"
+ HREF="node13.html#SECTION000131400000000000000">12.1.4 Right mouse button</A>
+<LI><A NAME="tex2html281"
+ HREF="node13.html#SECTION000131500000000000000">12.1.5 Non-interactive mode</A>
+</UL>
+<LI><A NAME="tex2html282"
+ HREF="node13.html#SECTION000132000000000000000">12.2 Star matching</A>
+<UL>
+<LI><A NAME="tex2html283"
+ HREF="node13.html#SECTION000132100000000000000">12.2.1 You need some catalog</A>
+<LI><A NAME="tex2html284"
+ HREF="node13.html#SECTION000132200000000000000">12.2.2 How it works</A>
+<LI><A NAME="tex2html285"
+ HREF="node13.html#SECTION000132300000000000000">12.2.3 What if matching fails?</A>
+<LI><A NAME="tex2html286"
+ HREF="node13.html#SECTION000132400000000000000">12.2.4 Non-interactive mode</A>
+</UL>
+<LI><A NAME="tex2html287"
+ HREF="node13.html#SECTION000133000000000000000">12.3 Astrometry</A>
+<LI><A NAME="tex2html288"
+ HREF="node13.html#SECTION000134000000000000000">12.4 Sending a report</A>
+<LI><A NAME="tex2html289"
+ HREF="node13.html#SECTION000135000000000000000">12.5 Settings</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000130000000000000000">
+12. Astrometry</A>
+</H1>
+
+<P>
+With <code>fitsblink</code> it is possible to measure star positions.  To do
+this, it is first necessary to detect stars on the image, then to find
+a match between the detected stars and stars from a catalog, and to
+make a transformation between the two sets of stars.
+
+<P>
+
+<H2><A NAME="SECTION000131000000000000000">
+12.1 Detection of stars and other objects</A>
+</H2>
+
+<P>
+You start star detection of the currently displayed image by choosing
+the <B>Detect stars</B> item in the <B>Astrometry menu</B>.
+Detection of stars has two steps: in the first step sky background
+levels are determined as a function of position inside the image, and
+in the second step stars are actually counted and their positions and
+intensities are determined.  A list of these quantities, along with a
+star ID number, is stored in the computer memory.  It is possible to
+store the results of star detection into a file by choosing the
+<B>Save star list</B> item.  Format of the output file is fairly
+simple: input file name followed by a list of stars.  For each star,
+there is a star ID, an <I>x</I> coordinate, a <I>y</I> coordinate and a star
+intensity.  If star matching is performed (see
+subsection&nbsp;<A HREF="node13.html#starmatch">12.2</A>) successfully <B>Save star list</B> also
+outputs celestial star coordinates expressed in decimal degrees.
+
+<P>
+Note that the stars which touch the edge of image are not reported.
+
+<P>
+
+<H3><A NAME="SECTION000131100000000000000">
+12.1.1 Parameters</A>
+</H3>
+
+<P>
+There are seven parameters concerning star detection that can be
+changed.  You can find them in the <B>Astrometry Options</B> window.
+You can set <B>Sigma above background</B> value, which is a
+sensitivity threshold expressed in units of standard deviation of the
+image background level.  Typically you will use values between 3.0 and
+5.0.  The <B>Minimal accepted intensity</B> is a threshold value
+expressed in pixel intensity units.  A star is not detected if its
+total intensity is less than the minimal accepted intensity.  This
+parameter is less important (and a bit redundant) and you can keep it
+close to zero.  The <B>Minimal star size in pixels</B> is mostly
+used to prevent detection of hot pixels as stars.  Normally you will
+keep this value equal 2.
+
+<P>
+In certain applications it may be desired that the stars lying close
+to the image edge are not detected.  This can be handled by the
+<B>Insensitive edge</B> parameter.  It defines the number of pixels
+from each of the image edges where the stars are not reported.
+Finally, the <B>Background grid size</B> determines the size of grid
+elements inside which background values are determined.  This value
+should not be too big, otherwise gradients in background level may not
+be well detected.  Also, it should not be too small or background will
+be affected by bright stars and other objects more than you want.
+Values between 30 and 50 should be fine for most cases.
+
+<P>
+From version 2.2 on, <code>fitsblink</code> can also use the aperture
+astrometry and photometry.  This is also the default setting.  Star
+coordinates are determined as a centroid of values inside a small
+circle.  To determine the star intensity, an average of pixel values
+between the small circle and a larger circle is calculated and used as
+a background value.  This is then multiplied by the number of pixels
+in the smaller circle which have values above the threshold and
+subtracted from the total signal inside the smaller circle to get the
+star intensity.  For the astrometry of comets you should always use
+the aperture astrometry because the other method may yield wrong
+results due to asymetric coma.  For large values (in comparison to
+star sizes) of the inner circle the aperture astrometry becomes
+practically identical to the alternative method which only uses pixels
+with values above some threshold.
+
+<P>
+
+<H3><A NAME="SECTION000131200000000000000">
+12.1.2 Star list format</A>
+</H3>
+
+<P>
+Here are first few lines from the <code>98kd3r5.dat</code> file.
+
+<P>
+<PRE>
+Input file name: 98kd3r5.fts.gz
+    0  203.41  425.36    33961.00 222.426891  0.361738 g 03261330   0.10  11.76
+    1  340.29  487.03    21952.00 222.393445  0.289046 g 03261311   0.10  12.39
+    2  211.92  187.61     5991.00 222.553634  0.356243 g 03270218   0.35  13.91
+    3  198.20  369.38     4987.00 222.456765  0.364289 g 03260027   0.08  14.42
+    4   62.06   97.30     4557.00 222.602409  0.435737 g 03270409   0.07  14.39
+    5  219.05  256.28     4551.00 222.516988  0.352721 g 03270212   0.21  14.54
+    6  339.95  424.35     4321.00 222.426869  0.288976
+    7  251.13  269.00     3627.00 222.510071  0.335679 g 03270167   0.12  14.88
+    8  332.75   64.77     2982.00 222.618637  0.291364 g 03270098   0.11  15.07
+    9  254.19  111.81     1924.00 222.593878  0.333415
+   10  150.39  232.54     1657.00 222.529929  0.389214 g 03270315   0.41  15.38
+   11  172.09  507.79     1654.00 222.383064  0.378755
+</PRE>In the first line there is the name of the image that was used to
+produce the star list. Columns for the following rows have the
+following meanings:
+
+<P>
+<DL COMPACT>
+<DT>1.
+<DD>Star ID for this image;
+<DT>2.
+<DD>Star <I>x</I> coordinate;
+<DT>3.
+<DD>Star <I>y</I> coordinate;
+<DT>4.
+<DD>Star intensity (sum of pixels belonging to a star minus the
+local background)
+<DT>5.
+<DD>Right ascension in decimal degrees.
+<DT>6.
+<DD>Declination in decimal degrees
+<DT>7.
+<DD>If match with a catalog star is found, a single letter tells
+catalog which was used.  For now <code>g</code> stands for the GSC and
+<code>u</code> stands for the USNO SA.
+<DT>8.
+<DD>If the catalog is GSC, here is a star ID for this catalog.
+<DT>9.
+<DD>Residual expressed in arc seconds.
+<DT>10.
+<DD>Star magnitude from the catalog.
+</DL>
+<P>
+Only first four columns are always present, columns from 5 on appear
+only if the coordinate transformation between image and catalog
+coordinates was successfully made and the matching catalog star was
+found.
+
+<P>
+
+<H3><A NAME="SECTION000131300000000000000">
+12.1.3 Loading a star list</A>
+</H3>
+
+<P>
+Star list can also be imported.  Choose <B>Load star list</B> item
+and select the wanted file name.  Please note that the first line in
+the input file is ignored. <code>Fitsblink</code> reads star lists it has
+produced, but it should be an easy exercise to convert any star list
+to the desired format: you need a star id in the first column, <I>x</I> and
+<I>y</I> coordinates in the second and third column and star intensity (not
+magnitude) in the fourth column.
+
+<P>
+
+<H3><A NAME="SECTION000131400000000000000">
+12.1.4 Right mouse button</A>
+</H3>
+
+<P>
+After succesfully detecting stars or importing of a star list you can
+display star coordinates by pointing a cursor to it and pressing the
+right mouse button.
+
+<P>
+
+<H3><A NAME="SECTION000131500000000000000">&#160;</A>
+<A NAME="starcount">&#160;</A>
+<BR>
+12.1.5 Non-interactive mode
+</H3>
+Extraction of star lists is often desired in a noninteractive mode.
+It is possible to use <code>fitsblink</code> in such a mode.  You need a
+soft link named <code>starcount</code> (do <code>ln -s fitsblink starcount</code>), 
+which points to the <code>fitsblink</code> program.  If you run
+<code>fitsblink</code> using the name <code>starcount</code>, it will perform star
+counting on the input image.  Command line parameters are:
+
+<P>
+<UL>
+<LI><code>-l logname</code>  name of the log file;
+<LI><code>-m gridsize</code> size of the grid element for background determination;
+<LI><code>-s threshold</code> intensity threshold expressed in units of
+background variation;
+<LI><code>-i intensity</code> absolute intensity threshold;
+<LI><code>-c starsize</code> minimum star linear size (in pixels).
+<LI><code>-b edgesize</code> size of the edge where stars are not detected.
+<LI><code>-a</code> switch on aperture astrometry (default).
+<LI><code>-g</code> switch off aperture astrometry.
+<LI><code>-n innercircle</code> radius of the inner circle for the
+aperture astrometry.
+<LI><code>-g outercircle</code> radius of the outer circle for the
+aperture astrometry.
+</UL>
+<P>
+
+<H2><A NAME="SECTION000132000000000000000">&#160;</A>
+<A NAME="starmatch">&#160;</A>
+<BR>
+12.2 Star matching
+</H2>
+
+<P>
+After the star detection, it is possible to match the detected stars
+with stars from a star catalog.  This is an operation which can easily
+fail if you do something wrong.  You should practice on one of the
+test images distributed together with the <code>fitsblink</code> program.
+Parameters needed for star matching (WCS values) can be either read
+from the FITS file header or input manually by choosing the
+<B>Edit parameters</B> item from the <B>Astrometry</B> menu.  The
+pixel size values should be correct within few percent.  Also, center
+coordinates should not be off by more than half of the field.  The
+rotation angle usually does not need to be changed because
+<code>fitsblink</code> finds (or does not find) a match regardless of image
+orientation for square pixels.
+
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="parameters">&#160;</A><A NAME="335">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 2:</STRONG>
+<B>Edit parameters</B> window.</CAPTION>
+<TR><TD><IMG
+ WIDTH="361" HEIGHT="568"
+ SRC="img3.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{parameters.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+
+<H3><A NAME="SECTION000132100000000000000">
+12.2.1 You need some catalog</A>
+</H3>
+
+<P>
+To do star matching, you need at least one of the supported star
+catalogs.  Currently <code>fitsblink</code> reads GSC 1.1 and USNO SA 1.0
+catalogs.  Both are distributed on CD-ROM and must be purchased
+separately.  You need to mount the CD-ROM somewhere in the directory
+structure of your computer and make sure that you are allowed to read
+it.  You choose the catalogs and set their paths in a window which
+appears after you choose the <B>Catalogs</B> item from the
+<B>Astrometry</B> menu (fig.&nbsp;<A HREF="node13.html#catalogs">3</A>).
+
+<P>
+Alternatively, you can copy these catalogs to your hard disk.  In a
+case of GSC, it is possible to use a nice feature of the
+<code>cfitsio</code> library that it automatically searches for the
+<code>file.gz</code> if it doesn't find <code>file</code>.  You can compress all
+<code>.gsc</code> files and save some disk space.  Only file 0001.gsc needs
+to be uncompressed.
+ 
+<BR>
+<DIV ALIGN="CENTER"><A NAME="catalogs">&#160;</A><A NAME="336">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 3:</STRONG>
+<B>Catalogs</B> window.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="193"
+ SRC="img4.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{catalogs.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+
+<H3><A NAME="SECTION000132200000000000000">
+12.2.2 How it works</A>
+</H3>
+
+<P>
+Matching subroutine uses constellations of stars from star lists
+extracted from both the CCD image and the catalog.  In the initial
+phase, it only uses a subset of bright stars from both images.  For
+each star in this subset it forms a constellation using the nearest
+stars from the subset.  Then it tries to find a constellation of stars
+from the catalog which completely or partly matches the reference
+constellation.  Each attempt of matching is given a value which
+indicates a level of similarity between the reference constellation
+and the constellation under investigation.  The maximum value that can
+be achieved is <I>n</I>(<I>n</I>+1)/2, where <I>n</I> is the number you type in
+<B>Number of stars in constellation</B> field of the
+<B>Astrometry options</B> form.  This number is never actually
+reached because stars from the CCD image never exactly match stars
+from the catalogue.
+
+<P>
+If the match is successful, a bilinear transformation between the
+coordinate system is calculated and results of matching are presented
+in a window.  It is possible to write the newly calculated WCS values
+directly into the FITS header (see also non-interactive mode).  This
+is only possible for the noncompressed images, because the cfitsio
+library does not write the compressed images yet.
+
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="matched">&#160;</A><A NAME="192">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 4:</STRONG>
+Display of input and calculated WCS coordinates.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="457"
+ SRC="img5.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{matched.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+
+<H3><A NAME="SECTION000132300000000000000">
+12.2.3 What if matching fails?</A>
+</H3>
+
+<P>
+There may be many reasons why matching between star lists extracted
+from a CCD image and a catalog fails.  They are the following:
+
+<P>
+<UL>
+<LI><EM>Wrong image coordinates.</EM>  Although <code>fitsblink</code> is
+tolerant to small discrepancies of image center coordinates, it can
+not search a very wide field around the assumed center coordinates.
+Catalog image is extended 30 % in each of four directions, so it
+covers 2.56 times the area that CCD image has.  Anything outside this
+can not be matched.
+
+<P>
+<LI><EM>Wrong pixel angular sizes.</EM>  The algorithm for star
+detection is not scale insensitive, as is, for example, <code>match</code>
+written by Michael Richmond.  So, you need to know actual pixel
+dimensions rather accurately, to some 1 %.  If you poorly know pixel
+dimensions, you should recall <B>Astrometry options</B> input form
+and enlarge <B>Maximal positional error in pixels</B> value to 20 or
+40 pixels.  You will get some warnings, but you can ignore them.  If
+you do this, star matching routine will be more tolerant.  If matching
+succeeds, you will get the calculated pixel sizes and you should use
+these values in the future.  However, if you don't know angular pixel
+size with better then 10 % accuracy, you really should rethink your
+intention to do astrometry.
+
+<P>
+<LI><EM>Bad choice of star catalog.</EM>  If angular dimensions of
+your CCD image are very small (15' or less), it may happen that you
+will not have enough comparison stars from the catalog.  It is better
+to use USNO SA catalog for small fields.  On the other side, in large
+fields there will be a lot of bright stars which are typically absent
+from the USNO SA catalog, so the program will not find comparison
+stars in the catalog.  So, for large fields, it is better to use GSC
+catalog.
+</UL>
+<P>
+If you are reasonably sure about the correctness of the star field
+coordinates as well as the pixel size(s) and you still can not get a
+match, try the following in <B>Astrometry options</B> form:
+
+<P>
+<DL COMPACT>
+<DT>1.
+<DD>Decrease <B>Minimal value to accept constellation</B>.  This
+helps if you don't have enough stars either on the CCD image or in the
+catalog.  If you decrease this value too much, you will get a lot of
+false matches and the coordinate transformation you will get will be
+wrong. 
+<DT>2.
+<DD>Increase <B>Number of bright stars in initial matching</B>.
+This may help if the CCD field and the catalog field only partially
+overlap or if you get a lot of spurious objects near some bright star
+or star cluster.  Increasing this number too much may increase
+processing time dramatically.
+<DT>3.
+<DD>Increase <B>Number of stars in constellation</B>.  Bigger
+constellations are more likely to have some stars in common.
+Increases processing time.  Do not use more than 20 stars.
+<DT>4.
+<DD>Increasing <B>Maximal positional error in pixels</B> will
+treat incorrect pixel sizes but also increase matching time and
+possibly cause false matches.
+</DL>
+<P>
+Do the above parameter adjustment in the order as described here.  As
+your despair increases, start to combine changes of different
+parameters until you finally get a match.
+
+<P>
+
+<H3><A NAME="SECTION000132400000000000000">&#160;</A>
+<A NAME="catalog">&#160;</A>
+<BR>
+12.2.4 Non-interactive mode
+</H3>
+Star matching with a catalog can be done also in a command line mode.
+By making a link <code>catalog</code> which points to <code>fitsblink</code> it is
+possible to run <code>fitsblink</code> with a command <code>catalog</code>.
+Output file name will be made automatically by stripping off whatever
+follows the last ``.'' and replacing it by an extension <code>dat</code>.
+Some attention is required here because there are chances that the
+output <code>.dat</code> file gets the same name as the input <code>.dat</code>
+file.  This may not be desired in some cases.  A possible solution for
+this is to rename the input <code>.dat</code> file.
+
+<P>
+<UL>
+<LI><code>-l</code> log file name
+<LI><code>-b</code> number of bright stars
+<LI><code>-a</code> right ascension of the center pixel (in decimal degrees)
+<LI><code>-d</code> declination (in decimal degrees)
+<LI><code>-w</code> width of a pixel (in arc seconds)
+<LI><code>-h</code> height of a pixel (in arc seconds)
+<LI><code>-x</code> number of pixels in <I>x</I> direction
+<LI><code>-y</code> number of pixels in <I>y</I> direction
+<LI><code>-f</code> name of the input star list
+<LI><code>-n</code> number of stars in constellation
+<LI><code>-m</code> minimal constellation value
+<LI><code>-e</code> allowed arror in pixels
+<LI><code>-i</code> allowed intensity error (factor)
+<LI><code>-r</code> residual in arc-seconds
+<LI><code>-c</code> catalog name and path (eg. <code>usno:/cdrom</code>, can be
+also <code>gscn:</code> for GSC North or <code>gscs:</code> for GSC South)
+<LI><code>-W</code> write newly calculated WCS values into the FITS file header
+</UL>
+<P>
+Here is a command line useful for the example image <code>98kd3r5.fts.gz</code>:
+
+<P>
+<PRE>
+catalog -f 98kd3r5.dat -a 222.5 -d 0.366 -w 1.92 -h 1.92 \
+	-c gscn:/cdrom -x 356 -y 541
+</PRE>The backslash above means continuation of the command line.  Please
+note again that the center coordinates are specified in DECIMAL
+degrees.  Default values for catalog matching are the same as in the
+interactive mode.   As in the interactive mode, it is not possible to
+write the WCS values into the header (the -W option) if the image file
+is compressed.
+
+<P>
+
+<H2><A NAME="SECTION000133000000000000000">&#160;</A>
+<A NAME="astrometry">&#160;</A>
+<BR>
+12.3 Astrometry
+</H2>
+Finally!  You successfully made all of the previous steps and you want
+to do astrometry of the asteroid you just imaged.  Go to the
+<B>Astrometry</B> menu and choose the <B>Do astrometry</B> item.
+When inside the image, cursor shape will change from a box to a
+cross.  Now point to some of the objects (red circles) and click left
+button on it.  You will be asked for the object designation.  When you
+enter it and click on the OK button, a window with the report suitable
+for sending to MPC (Minor Planet Center) will appear.  At this point
+you can either send the report immediatelly or proceed with further
+astrometry.  Coordinates are for the equinox J2000.
+
+<P>
+
+<H2><A NAME="SECTION000134000000000000000">&#160;</A>
+<A NAME="report">&#160;</A>
+<BR>
+12.4 Sending a report
+</H2>
+
+<P>
+The report window is used for editing and sending astrometry positions
+to the MPC.  It is shown in fig.&nbsp;<A HREF="node13.html#astrometry_report">5</A>
+
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="astrometry_report">&#160;</A><A NAME="227">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 5:</STRONG>
+Astrometry report window.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="423"
+ SRC="img6.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{astrometry_report.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+Sending astrometry reports to MPC requires certain
+format. <code>Fitsblink</code> writes information about the measurement in
+this format.  Additionally, you have to give some basic information
+about you and about the measurement.  If this information is present
+in the header of the image file or in the <code>.fitsblinkrc</code> file, it
+will be inserted in the message if you press the <B>Insert
+header</B> button.  Otherwise you will have to type this information by
+yourself.  You can use the <B>Send astrometry report</B> form as a
+primitive line editor and add additional information to the file which
+will be sent.  When you press the <B>Send</B> button and comfirm
+your decision, the message is sent to whatever addresses you wrote
+into <B>To:</B> and <B>CC:</B> fields.  So, be careful with this.
+
+<P>
+
+<H2><A NAME="SECTION000135000000000000000">
+12.5 Settings</A>
+</H2>
+
+<P>
+The following default settings can be written into file
+<code>$HOME/.fitsblinkrc</code> by <code>fitsblink</code> and then read at the
+start-up time.  
+
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="catalog_paths">&#160;</A><A NAME="240">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 6:</STRONG>
+Catalog paths: these are the places where the supported catalogs
+can be found.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img7.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{catalog_paths.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="observatory">&#160;</A><A NAME="247">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 7:</STRONG>
+Observatory settings: Observatory code, observer name(s),
+telescope name and size and instrument type.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img8.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{observatory.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="display">&#160;</A><A NAME="254">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 8:</STRONG>
+Display settings: color or grey level, delay between blinking
+images and dimensions of the image window.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img9.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{display.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="mail">&#160;</A><A NAME="261">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 9:</STRONG>
+Mail defaults.</CAPTION>
+<TR><TD><IMG
+ WIDTH="361" HEIGHT="214"
+ SRC="img10.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{mail.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="telescope">&#160;</A><A NAME="268">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 10:</STRONG>
+Telescope control commands.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img11.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{telescope.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="camera">&#160;</A><A NAME="275">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 11:</STRONG>
+Camera control commands.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img12.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{camera.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="countdefs">&#160;</A><A NAME="282">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 12:</STRONG>
+Default parameters for star detection routines.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img13.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{countdefs.eps}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="matchdefs">&#160;</A><A NAME="289">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 13:</STRONG>
+Default parameters for catalog matching routines.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img14.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{matchdefs.eps}\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="help">&#160;</A><A NAME="296">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 14:</STRONG>
+Help system.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="215"
+ SRC="img15.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{help.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html274"
+ HREF="node14.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html271"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html265"
+ HREF="node12.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html273"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html275"
+ HREF="node14.html">13. Telescope and CCD</A>
+<B> Up:</B> <A NAME="tex2html272"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html266"
+ HREF="node12.html">11. Blinking</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

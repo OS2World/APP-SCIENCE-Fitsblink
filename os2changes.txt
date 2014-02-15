@@ -1,0 +1,24 @@
+changes to compile fitsblink 2.24 on xfree86-OS/2
+
+changed random() to rand() 'cause I'm lazy and don't want to link 
+in bsd.lib which supports random().
+
+commented out:
+
+telescope.c 522:
+
+ /* fl_set_clock_adjustment(state.telescope->telutW, timezone); */
+
+and
+telescope.c 307: 
+/*  fl_show_object(state.telescope->exponW); */
+
+and
+telescope.c 311:
+/*fl_hide_object(state.telescope->exponW);*/
+
+
+don't know why these don't work...!
+
+Duncan Munro
+dmunro@sfu.ca

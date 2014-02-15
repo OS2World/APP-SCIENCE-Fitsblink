@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Fitsblink 2.2 user manual</TITLE>
+<META NAME="description" CONTENT="Fitsblink 2.2 user manual">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html23"
+ HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif_gr.gif"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif_gr.gif"> 
+<A NAME="tex2html22"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html24"
+ HREF="node1.html">Contents</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<P>
+<H1 ALIGN="CENTER">Fitsblink 2.2 user manual</H1>
+<P ALIGN="CENTER"><STRONG>Jure Skvarc
+<BR>
+jure.skvarc@ijs.si</STRONG></P>
+<P ALIGN="LEFT"></P>
+
+<P>
+
+<H3>Abstract:</H3>
+<DIV><code>Fitsblink</code> is a program for FITS image viewing, blinking,
+extracting of star lists and doing astrometry.  It runs on Unix and
+OS/2 computers with X Windows graphics and was developed on HPUX
+(version 1.x) and Linux operating systems (version 2.x). 
+</DIV>
+<P>
+<P>
+
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS">&#160;</A>
+<UL>
+<LI><A NAME="tex2html25"
+ HREF="node1.html">Contents</A>
+<LI><A NAME="tex2html26"
+ HREF="node2.html">1. Introduction</A>
+<LI><A NAME="tex2html27"
+ HREF="node3.html">2. Installation</A>
+<UL>
+<LI><A NAME="tex2html28"
+ HREF="node3.html#SECTION00031000000000000000">2.1 Hardware and software requirements</A>
+<LI><A NAME="tex2html29"
+ HREF="node3.html#SECTION00032000000000000000">2.2 Getting executables</A>
+<LI><A NAME="tex2html30"
+ HREF="node3.html#SECTION00033000000000000000">2.3 Compiling</A>
+<LI><A NAME="tex2html31"
+ HREF="node3.html#SECTION00034000000000000000">2.4 Installation</A>
+<LI><A NAME="tex2html32"
+ HREF="node3.html#SECTION00035000000000000000">2.5 Known bugs</A>
+</UL>
+<LI><A NAME="tex2html33"
+ HREF="node4.html">3. Quick start tutorial</A>
+<UL>
+<LI><A NAME="tex2html34"
+ HREF="node4.html#SECTION00041000000000000000">3.1 Installing and running for the first time</A>
+<LI><A NAME="tex2html35"
+ HREF="node4.html#SECTION00042000000000000000">3.2 First blink</A>
+<LI><A NAME="tex2html36"
+ HREF="node4.html#SECTION00043000000000000000">3.3 Star detection</A>
+<LI><A NAME="tex2html37"
+ HREF="node4.html#SECTION00044000000000000000">3.4 Matching the catalog</A>
+<LI><A NAME="tex2html38"
+ HREF="node4.html#SECTION00045000000000000000">3.5 Reading object positions</A>
+<LI><A NAME="tex2html39"
+ HREF="node4.html#SECTION00046000000000000000">3.6 Astrometry reports</A>
+<LI><A NAME="tex2html40"
+ HREF="node4.html#SECTION00047000000000000000">3.7 Markers</A>
+</UL>
+<LI><A NAME="tex2html41"
+ HREF="node5.html">4. Starting fitsblink</A>
+<LI><A NAME="tex2html42"
+ HREF="node6.html">5. Visual appearance</A>
+<LI><A NAME="tex2html43"
+ HREF="node7.html">6. Getting help</A>
+<LI><A NAME="tex2html44"
+ HREF="node8.html">7. Loading images</A>
+<LI><A NAME="tex2html45"
+ HREF="node9.html">8. Erasing an image</A>
+<LI><A NAME="tex2html46"
+ HREF="node10.html">9. Image display</A>
+<UL>
+<LI><A NAME="tex2html47"
+ HREF="node10.html#SECTION000101000000000000000">9.1 Colors and grey levels</A>
+<LI><A NAME="tex2html48"
+ HREF="node10.html#SECTION000102000000000000000">9.2 Adjusting grey level mapping</A>
+<LI><A NAME="tex2html49"
+ HREF="node10.html#SECTION000103000000000000000">9.3 Resizing the blinker window</A>
+</UL>
+<LI><A NAME="tex2html50"
+ HREF="node11.html">10. Markers</A>
+<UL>
+<LI><A NAME="tex2html51"
+ HREF="node11.html#SECTION000111000000000000000">10.1 Using the markers</A>
+<LI><A NAME="tex2html52"
+ HREF="node11.html#SECTION000112000000000000000">10.2 Marker appearance</A>
+<LI><A NAME="tex2html53"
+ HREF="node11.html#SECTION000113000000000000000">10.3 Switching markers on and off</A>
+</UL>
+<LI><A NAME="tex2html54"
+ HREF="node12.html">11. Blinking</A>
+<UL>
+<LI><A NAME="tex2html55"
+ HREF="node12.html#SECTION000121000000000000000">11.1 Image alignment</A>
+</UL>
+<LI><A NAME="tex2html56"
+ HREF="node13.html">12. Astrometry</A>
+<UL>
+<LI><A NAME="tex2html57"
+ HREF="node13.html#SECTION000131000000000000000">12.1 Detection of stars and other objects</A>
+<UL>
+<LI><A NAME="tex2html58"
+ HREF="node13.html#SECTION000131100000000000000">12.1.1 Parameters</A>
+<LI><A NAME="tex2html59"
+ HREF="node13.html#SECTION000131200000000000000">12.1.2 Star list format</A>
+<LI><A NAME="tex2html60"
+ HREF="node13.html#SECTION000131300000000000000">12.1.3 Loading a star list</A>
+<LI><A NAME="tex2html61"
+ HREF="node13.html#SECTION000131400000000000000">12.1.4 Right mouse button</A>
+<LI><A NAME="tex2html62"
+ HREF="node13.html#SECTION000131500000000000000">12.1.5 Non-interactive mode</A>
+</UL>
+<LI><A NAME="tex2html63"
+ HREF="node13.html#SECTION000132000000000000000">12.2 Star matching</A>
+<UL>
+<LI><A NAME="tex2html64"
+ HREF="node13.html#SECTION000132100000000000000">12.2.1 You need some catalog</A>
+<LI><A NAME="tex2html65"
+ HREF="node13.html#SECTION000132200000000000000">12.2.2 How it works</A>
+<LI><A NAME="tex2html66"
+ HREF="node13.html#SECTION000132300000000000000">12.2.3 What if matching fails?</A>
+<LI><A NAME="tex2html67"
+ HREF="node13.html#SECTION000132400000000000000">12.2.4 Non-interactive mode</A>
+</UL>
+<LI><A NAME="tex2html68"
+ HREF="node13.html#SECTION000133000000000000000">12.3 Astrometry</A>
+<LI><A NAME="tex2html69"
+ HREF="node13.html#SECTION000134000000000000000">12.4 Sending a report</A>
+<LI><A NAME="tex2html70"
+ HREF="node13.html#SECTION000135000000000000000">12.5 Settings</A>
+</UL>
+<LI><A NAME="tex2html71"
+ HREF="node14.html">13. Telescope and CCD camera control</A>
+<UL>
+<LI><A NAME="tex2html72"
+ HREF="node14.html#SECTION000141000000000000000">13.1 Telescope commands</A>
+<LI><A NAME="tex2html73"
+ HREF="node14.html#SECTION000142000000000000000">13.2 Access to catalogs</A>
+</UL>
+<LI><A NAME="tex2html74"
+ HREF="node15.html">About this document ... </A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

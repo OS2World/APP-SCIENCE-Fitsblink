@@ -1,0 +1,82 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>4. Starting fitsblink</TITLE>
+<META NAME="description" CONTENT="4. Starting fitsblink">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node6.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node6.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html179"
+ HREF="node6.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html176"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html170"
+ HREF="node4.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html178"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html180"
+ HREF="node6.html">5. Visual appearance</A>
+<B> Up:</B> <A NAME="tex2html177"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html171"
+ HREF="node4.html">3. Quick start tutorial</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00050000000000000000">
+4. Starting fitsblink</A>
+</H1>
+
+<P>
+<code>Fitsblink</code> can be started in the following ways:
+
+<P>
+<UL>
+<LI><code>fitsblink [[file.fts] [file.fts.gz]..]</code> will show the user
+interface and let you do all of the normal functions.  If you specify
+FITS file names, it will also load images and display them.
+<LI><code>fitsblink -i file.inp</code> will read names of the FITS files
+which should be loaded from the <code>file.inp</code>, their respective
+positional shift and any number of markers with their positions,
+sizes, colors and shapes.
+<LI><code>starcount</code> where <code>starcount</code> is a link to the
+<code>fitsblink</code> program will detect stars and write their positions
+in an output file (see subsection&nbsp;<A HREF="node13.html#starcount">12.1.5</A>).  <code>Starcount</code>
+runs <code>fitsblink</code> in a non-interactive mode, so no windows appear
+nor do you need to run X-Windows.
+<LI><code>catalog</code> where <code>catalog</code> is a link to the
+<code>fitsblink</code> program will read a star list and the image FITS
+header and try to find a match with a star catalog.  It writes any
+cross-identifications it finds in the output file.  For more details,
+see subsection&nbsp;<A HREF="node13.html#catalog">12.2.4</A>.
+
+<P>
+</UL>
+<P>
+<BR><HR>
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

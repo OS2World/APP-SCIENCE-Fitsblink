@@ -1,0 +1,36 @@
+Here are some answers to the randomly selected questions that may
+arise in user's heads.
+
+
+1.  What is the difference between settings in the Options window and
+in the Settings window?
+
+The values in the Options window are valid for the currently displayed
+image.  If you change them they will be effective only for this image.
+The values in the Settings menu are the default parameter values which
+are assigned to the set of parameters for the newly loaded images.
+Changing the values in the Options window will not affect the values
+in the Settings window and vice versa.  However, you can transfer the
+values from Settings to Options by pressing the Default button in the
+Options window.
+
+
+2.  I played with parameters in the Settings window and saved them.
+Now star matching is no good anymore and I forgot the initial values.
+What should I do?
+
+If you really badly mess up the parameter values, you can erase the
+.fitsblinkrc file in your home directory and then run fitsblink
+again.  Open the Settings window and press Save.  By this you will set
+the "default default values".
+
+
+3. How to avoid mounting GSC CD-ROMs all the time?
+
+Nowadays the hard disks are quite big and you can simply copy the
+complete directory structure from the CD-ROM to your hard disk.  You
+can save quite some space by compressing the gsc files with the gzip
+program.  To do this, go to the gsc/ directory and type
+
+find ./ -name "*.gsc" -exec gzip {} \;
+

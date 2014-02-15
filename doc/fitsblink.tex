@@ -1,0 +1,1113 @@
+\documentclass[11pt]{article}
+\usepackage{epsfig}
+\usepackage{here}
+\usepackage{a4wide}
+\usepackage{html}
+\title{Fitsblink 2.2 user manual}
+\author{Jure Skvar\v{c}\\jure.skvarc@ijs.si}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\verb=Fitsblink= is a program for FITS image viewing, blinking,
+extracting of star lists and doing astrometry.  It runs on Unix and
+OS/2 computers with X Windows graphics and was developed on HPUX
+(version 1.x) and Linux operating systems (version 2.x). 
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+\section{Introduction}
+
+Work on this program is motivated by author's personal interest in
+asteroid and comet observations.  First release of \verb=fitsblink=
+was introduced to TASS group
+(\htmladdnormallink{http://www.tass-survey.org}{http://www.tass-survey.org})
+in November 1996 as a simple tool for FITS image display and blinking.
+Later, functionality of the program was tuned to needs of the comet
+and asteroid observation program, which is ongoing at the \v{C}rni Vrh
+Observatory in Slovenia
+(\htmladdnormallink{http://astro.ago.uni-lj.si/comets}
+{http://astro.ago.uni-lj.si/comets}).
+
+\verb=Fitsblink= attempts to be rather user friendly and
+intuitive. Unfortunately, you still need to know what you are doing.
+In particular, you should know what astrometry is and have some sense
+to detect wrong results, which may appear due to a bad choice of
+parameters used for star detection and star matching.
+
+\verb=Fitsblink= may be freely distributed and used.  You are not
+allowed to sell it or to distribute changed program under the same
+name.  You can make your own version, but give it a different name. If
+you use large parts of the source in some other program, a proper
+credit should be given in the source file.
+
+I always welcome comments, suggestions and bug reports concerning
+\verb=fitsblink=.  Note that I do not work on this program
+professionally so the activity is limited to times when the pressure
+from my job decreases a little.  I will certainly try to fix any
+serious bugs that may affect the intended functionality of the program
+as soon as possible.  As for suggestions for extended functionality, I
+will consider them for the next burst of activity if they fit into my
+concept of the program.
+
+I would like to thank Bojan Dintinjana from the
+Astronomical-Geophysical Observatory Golovec (AGO) for his nice color
+palette and helpful suggestions and Herman Miku\v{z} (AGO and \v{C}rni
+Vrh Observatory) for the example images.
+
+\section{Installation}
+
+\subsection{Hardware and software requirements}
+
+The \verb=fitsblink= program will in principle run on a PC 486, 8 MB
+of RAM, 1024x768 pixel graphics card and 15'' color monitor.  It will
+be rather slow, however, and the amount of images loaded at one time
+will be limited.  The recommended minimal configuration is Pentium 200
+MHz, 32 MB RAM, 1280x1024 video card and 17'' monitor or better.
+
+Other platforms: any equivalently powerful Unix workstations should be
+good enough.  However, it is up to you to obtain appropriate libraries
+and compile the program.  \verb=Fitsblink= uses \verb=cfitsio 2.025=
+and \verb=xforms 0.88= libraries.  In principle the version 1.42 of
+\verb=cfitsio= should work, too.  Please do not attempt to use any
+earlier version of the \verb=xforms= library because the program will
+most probably not work with it.  
+
+\verb=Fitsblink= is also reported to work under the OS/2 + XFREE86
+operating system thanks to Duncan Munro from Canada.
+
+Version 2.11 of \verb=fitsblink= was successfully compiled on
+SUNOS 4.3 but some modifications of the \verb=makefile= and commenting
+out some \verb=#include= statements were necessary.  Unfortunately,
+binaries are not available on \verb=fitsblink= home page. 
+
+To do astrometry, you also need CD-ROMs with GSC 1.1 star catalog
+and/or USNO SA 1.0 catalog.  In principle you can also have exact
+copies of these catalogs on hard disk, if you wish to avoid mounting
+and unmounting of CD-ROM drives and your hard disk is big enough.
+
+
+\subsection{Getting executables}
+
+You can get the compiled program for the Linux system on\\
+\htmladdnormallink{http://kronos.ijs.si/~jure/fitsblink/fitsblink.html}{http://kronos.ijs.si/~jure/fitsblink/fitsblink.html}.
+
+\subsection{Compiling}
+
+Sources of \verb=fitsblink= are available at\\
+\htmladdnormallink{http://kronos.ijs.si/~jure/fitsblink/fitsblink.html}{http://kronos.ijs.si/~jure/fitsblink/fitsblink.html}.
+You can find the latest version of the \verb=cfitsio= library at\\
+\htmladdnormallink{ftp://legacy.gsfc.nasa.gov/software/fitsio/c/}{ftp://legacy.gsfc.nasa.gov/software/fitsio/c/}
+and the \verb=xforms 0.88= library at\\
+\htmladdnormallink{http://bragg.phys.uwm.edu/xforms}{http://bragg.phys.uwm.edu/xforms}.
+If you really want to compile \verb=fitsblink= by yourself, make sure
+that you install these libraries properly.  Then edit the
+\verb=makefile= and enter proper paths for include files and
+libraries. You also need to change \verb=C= compiler switches if you
+don't use \verb=GNU C=.  Then type make and hope for the best.  If you
+succeed in compiling \verb=fitsblink= for some other platform and you
+wish to share the binary code with other people, you are welcome to
+send it to me and I will add it to the \verb=fitsblink= home page.
+
+\subsection{Installation}
+
+When you get a working binary, you can install it to a directory which
+is listed in your path, for example \verb=/usr/local/bin=.  When you
+run \verb=fitsblink= for the first time, it will complain about not
+finding a parameter file.  Just proceed with the program and choose
+the \textbf{Settings} item in the \textbf{Astrometry} menu.
+Write in your default settings and press the \textbf{Save} button. A
+file which contains your settings is named \verb=.fitsblinkrc= and is
+written to your home directory.  For those less familiar with Unix,
+files starting with a dot are ``hidden'', i.e. normally not shown by
+the \verb=ls= command.  
+
+The user manual (this one) serves also as the help file. It is a good
+idea to put it to some known place, such as
+\verb=/usr/local/lib/fitsblink=.
+
+You can install the \verb=fitsblink= program (default location
+\verb=/usr/local/bin=) and user manual (default location
+\verb=/usr/local/lib/fitsblink= by typing \verb=make install=.  You
+must be root for this.
+
+\subsection{Known bugs}
+
+\begin{itemize}
+\item After erasing images from the memory sometimes a segmentaion fault
+appears.  This bug appears relatively infrequently and is difficult to
+reproduce.  The author would be grateful on any documented example how
+to reproduce this or any other bug reliably.
+\item You can't use USNO catalog on big-endian computers.
+\end{itemize}
+
+
+\section{Quick start tutorial}
+
+This section lets you go through some of the \verb=fitsblink=
+functions without reading the rest of the manual, just to get some
+overview of the available functions.
+
+\subsection{Installing and running for the first time}
+
+Apart from a working \verb=fitsblink= program you also need the
+example images which can be found on the \verb=fitsblink= home page.
+Un-tar the file by typing \verb=tar xf examples.tar=.  A directory
+named \verb=fitsblink_examples= will be created and you will find
+there the following files:
+
+\begin{verbatim}
+98kd3r5-98kd3r6.inp
+98kd3r5.dat
+98kd3r5.fts.gz
+98kd3r6.dat
+98kd3r6.fts.gz
+coordinates
+\end{verbatim}
+
+Go to the \verb=fitsblink_examples= directory and start
+\verb=fitsblink=.  If the \verb=$HOME/.fitsblinkrc= file does not
+exist yet, \verb=fitsblink= will complain.  Just press \textbf{OK}
+button and from the \textbf{Astrometry} menu choose the
+\textbf{Settings} item.  Set all of the settings and save them by
+pressing the \textbf{Save} button.  Next time you run \verb=fitsblink=
+it should not complain anymore about the missing parameter file.
+
+\subsection{First blink}
+Now press the left \textbf{Load} button and choose
+\verb=98kd3r5.fts.gz= file from the file selector.  The image will be
+loaded and displayed in the blink window.  Repeat this procedure with
+the \verb=98kd3r6.fts.gz= file.  Now you have two images in the memory
+and you can blink them just by pressing the \textbf{Blink} button.
+The images will be alternately displayed on the screen.  You can
+adjust blinking frequency with the \textbf{Delay} counter.  You
+noticed that the images are not aligned perfectly.  So, center a star
+in the left small window with the magnified image and double-click on
+it.  Four cursor buttons will appear.  Click on them until small
+images are aligned and then press the button with a blue circle.  The
+images will be aligned now.  If you look for a moving objects, you
+will find one right to the center of the screen. To stop blinking,
+press \textbf{Blink} again.
+
+\subsection{Star detection}
+Before you can do astrometry, stars have to be detected.  Open the
+\textbf{Astrometry} menu and choose \textbf{Detect stars}.  The
+detected objects will be marked by red circles.  You may want to
+change sensitivity.  Choose \textbf{Options}, change values in the
+\textbf{Star counting} frame and run \textbf{Detect stars} again.
+After that, press the \textbf{Defaults} button and detect stars again.
+
+\subsection{Matching the catalog}
+By now you have already detected objects and you want to get the
+coordinates of that moving object you spotted in the blinking images.
+Things become a little more real now: you need either GSC 1.1 or USNO
+SA 1.0 catalog.  Typically, you will have them on a CDROM.  If you
+haven't done so before, mount the CDROM somewhere in your file system.
+Choose the \textbf{Catalogs} item and write in the mounting point of
+the catalog.  Also, press the check button for the catalog you have.
+Then choose \textbf{Edit parameters} and write in approximate
+coordinates of the image center: RA=14h50m and DEC=0d22'.  Pixel sizes
+should be already written in: 1.92'' in both directions.  Do not
+forget to press return or tabulator after you write values in the
+input fields!  Now choose \textbf{Match stars} and see what happens.
+If you followed the previous steps, you should get a successful match
+with the default parameters regardless whether you used GSC or USNO SA
+catalog..
+
+\subsection{Reading object positions}
+
+As soon you detect stars, you can also get their positions by pressing
+the RIGHT mouse button when you are close to one of the DETECTED
+objects.  A window with a magnified part of the image around the
+object position will appear.  You will get object $x$ and $y$
+coordinates, as well as object intensity, all in pixel units.  If the
+WCS values are present in the image header or if you made a successful
+match with catalog stars, you will also see the object's celestial
+coordinates.  For the example image \verb=98kd3r5.fts.gz= the
+coordinates of the moving object are:
+
+\begin{tabular}{l|l|c|c}
+Detection method & Catalog & RA & Dec. \\
+\hline
+GSC 1.1 & 14:50:00.61 & 00:20:26.9 \\
+GSC 1.1 + USNO SA 1.0 & 14:50:00.61 & 00:20:26.7 \\
+USNO SA 1.0  & 14:50:00.60 & 00:20:26.6 \\
+\end{tabular}
+
+\subsection{Astrometry reports}
+
+There is another way to get object coordinates: choose the \textbf{Do
+astrometry} item.  You will see the cursor change shape into a
+cross. Now press the LEFT mouse button on a selected object.  An
+astrometry report window will appear and if you are happy with the
+measurement, type in the object name and press \textbf{Accept}.  For
+more details about this, see
+sections~\ref{astrometry}~and~\ref{report}.
+
+\subsection{Markers}
+
+Another interesting feature of \verb=fitsblink= are markers.  You
+already saw them if you detected stars and matched them with a
+catalog.  You can find some examples of the use of markers in the file
+\verb=98kd3r5-98kd3r6.inp=.  From the command line run 
+\verb=fitsblink -i 98kd3r5-98kd3r6.inp= and see what happens.
+
+This concludes the quick overview of the main \verb=fitsblink=
+functions.
+
+
+\section{Starting fitsblink}
+
+\verb=Fitsblink= can be started in the following ways:
+
+\begin{itemize}
+\item \verb=fitsblink [[file.fts] [file.fts.gz]..]= will show the user
+interface and let you do all of the normal functions.  If you specify
+FITS file names, it will also load images and display them.
+\item \verb=fitsblink -i file.inp= will read names of the FITS files
+which should be loaded from the \verb=file.inp=, their respective
+positional shift and any number of markers with their positions,
+sizes, colors and shapes.
+\item \verb=starcount= where \verb=starcount= is a link to the
+\verb=fitsblink= program will detect stars and write their positions
+in an output file (see subsection~\ref{starcount}).  \verb=Starcount=
+runs \verb=fitsblink= in a non-interactive mode, so no windows appear
+nor do you need to run X-Windows.
+\item \verb=catalog= where \verb=catalog= is a link to the
+\verb=fitsblink= program will read a star list and the image FITS
+header and try to find a match with a star catalog.  It writes any
+cross-identifications it finds in the output file.  For more details,
+see subsection~\ref{catalog}.
+
+\end{itemize}
+
+\section{Visual appearance}
+
+At start the program displays two windows: a control window and an
+image window.  The control window has two identical sets of controls
+and displays.  Each of them can be in charge for any of images
+currently stored in memory; both can be in charge even for the same
+image.  
+
+The image window displays an image belonging to a currently selected
+set of controls.  It also shows a magnified small portion of images
+belonging to both controls, a button which switches blinking on and
+off, a menu called \textbf{Astrometry} and some additional buttons.
+
+As you choose some of the items from the \textbf{Astrometry} menu, new
+windows may appear.  Some of them have to be closed before you can
+proceed with other operations, some of them not.
+
+
+\section{Getting help}
+
+\verb=Fitsblink= lets you run an arbitrary external program which
+will, hopefully, load the documentation.  This program will be
+typically a WWW browser or some other X Windows program for displaying
+documents.  The \textbf{Settings} item from the \textbf{Astrometry}
+menu will let you specify the browser name and path to the
+documentation file.  You run the program by opening the \textbf{Help}
+menu and selecting the \textbf{Manual} item.
+
+\section{Loading images}
+\label{loading}
+To blink images or do astrometry you must first load them into memory.
+The \verb=fitsblink= program accepts 16-bit two-dimensional FITS
+images.  The program also reads the header and extracts the following
+information:
+
+\begin{itemize}
+\item WCS values from the CRVAL, CRPIX, CDELT and CROT keywords.  If
+these keywords are present, the program will also display celestial
+coordinates at the cursor position.
+\item Time and date of the mid-exposure.  It seems that there is no
+standard on which keywords define the time of mid-exposure.  Different
+CCD camera manufacturers use different keywords in programs which
+aquire data from cameras and write a FITS file.  \verb=Fitsblink=
+tries the following things to calculate the correct time of
+mid-exposure: 
+\begin{enumerate}
+\item Checks for UT-CENT keyword.  If this keyword is present it takes
+its value as the time of mid-exposure.
+\item If UT-CENT is not present, it calculates time of mid-exposure
+from values of UT-START or TIME-BEG keywords and EXPOSURE keyword.
+\item If there is no EXPOSURE keyword, time is calculated as the mean
+time of UT-START or TIME-BEG and UT-END or TIME-END values.
+\item EXPOSURE and EXPTIME keywords are considered to be synonims.
+\item Date expressed in either dd/mm/yy, dd/mm/yyyy, dd-mm-yyy or
+yyyy-mm-dd formats is read from the value of the DATE-OBS keyword.  It
+is understood that the date is valid for the start of exposure and the
+program makes necessary correction if the mid-exposure falls on the
+next day.
+\end{enumerate}
+%\item Object name from the OBJECT keyword. This is later used in the
+%astrometry report.
+\item Telescope description from the TELESCOP keyword.
+\item Instrument (CCD camera) name from the INSTRUME keyword.
+\item Observer name(s) from the OBSERVER keyword.
+\end{itemize}
+
+To load an image, press the "Load" button.  A file selector will
+appear and you can navigate through directories to find the wanted
+file.  When you find it, double-click on it or select it and press the
+\textbf{Ready} button.  It is also possible to type in the file name.
+\verb=Fitsblink= loads either FITS images or gzipped fits images,
+thanks to the CFITSIO library.  After loading it tries to make an
+automatic level adjustment so that stars exhibit good contrast
+relatively to the background.  This procedure may produce not so good
+results for images with very bright objects or if some non-image data
+is stored in the image area.  When the image is loaded, it is scaled
+and transfered to an X Windows structure called Pixmap for faster
+blinking operation.  The original image data remains in the memory.
+\verb=Fitsblink= can in principle read unlimited number of images.
+You are limited by the available memory of your computer and X
+terminal, of course.
+
+There is an alternative method of image loading, which is particularly
+suitable when the images are first processed by some program which
+analyses the images and finds how are they shifted and identifies
+moving objects.  You need to prepare a file with the following
+structure:
+
+\begin{verbatim}
+filename1 x_offset1 y_offset1
+filename2 x_offset2 y_offset2
+         .
+         .
+         .
+\end{verbatim}
+
+If you name this file eg. \verb=test.inp=, \verb=fitsblink= will load
+files named in the first column and shift the images by the offsets
+given in the second and third columns.  The purpose of this is to have
+properly aligned images at the moment they are loaded into memory.
+
+Additionally, following every line with the file name it is possible
+to append a list of marker coordinates.  For every marker you need to
+specify also its size and a word describing the object it represents.
+You can also specify marker color and marker shape.  There must be
+four, five or six white-space separated items in such a line, for
+example
+
+\begin{verbatim}
+filename1 x_offset1 y_offset1
+45 100 5 asteroid red box
+67 29 5 asteroid blue 
+87 216 5 nova 
+filename2 x_offset2 y_offset2
+         .
+         .
+         .
+\end{verbatim}
+
+The default color is \verb=red= and the default shape is
+\verb=circle=.  More about markers in section~\ref{markers}.  Do not
+forget to press return in the last line of the batch file.  For a
+practical example, see the \textbf{Quick tutorial section}.
+
+\section{Erasing an image}
+
+If you don't want to use the currently selected image (its name is
+displayed in the \textbf{File} box) anymore, just press the
+\textbf{Erase} button and the image will be removed from the memory.
+Of course, the file on disk is not affected.  If this image is also
+displayed at the moment when you press \textbf{Erase}, it will be
+replaced by the next image in the file list or with an empty screen if
+this is the only file currently loaded.
+
+\section{Image display}
+
+\subsection{Colors and grey levels}
+
+When the image is loaded into memory, it is also displayed in an X
+window.  Before or after loading you can choose either grey level or
+color coded intensity display.  You choose the pallete by pressing
+either \textbf{Grey} or \textbf{Color} button in the image window.  If
+you want to save this setting as a default mode for the next time when
+you invoke \verb=fitsblink=, go to the \textbf{Astrometry} menu and
+press the \textbf{Settings} button.  Although white stars on black
+background are ``natural'', you may prefer to set the inverse mode
+(black stars on white background) or color mode in which you spot
+nebulosities more easily.  If you have only an 8-bit display and you
+already run some colorful program when you invoke \verb=fitsblink=,
+the color pallete may be limited and you may see stars displayed in
+some funny colors.
+
+\subsection{Adjusting grey level mapping}
+
+If you are not happy with the color or grey level settings which were
+set automatically when the image was loaded, you may want to adjust
+them manually.  You can do this by holding the left mouse button on
+one of the points in the \textbf{Grey level correction} window and
+dragging it to a desired position.  Typically, the two points between
+which the curve jumps from zero to the maximum value are very close
+together.  For fine adjustment you should zoom the curve by clicking
+on arrow buttons below the window.  Press the right mouse button for
+quick zoom, middle mouse button for moderately quick zoom and left
+mouse button for slow zoom.  Pressing the right mouse button on the
+third arrow is what you usually need.
+
+\subsection{Resizing the blinker window}
+
+You can resize the blinker window to some limit in the usual way as it
+is done in X-Windows.  If you want to set the new window size as a
+default value for the future invocations of \verb=fitsblink=, just open
+the \textbf{Settings} window and press \textbf{Save}.  Note that you
+also save all other parameters when you do this.
+
+ 
+\section{Markers}
+\label{markers}
+\subsection{Using the markers}
+To each image a set of markers can be added.  They are loaded either
+from the input file (see section~\ref{loading}) or can be generated by
+\textbf{Detect stars} and \textbf{Match stars} functions.  Markers are
+useful for image annotation.  For example, if you have some software
+which detects moving objects, you can make an input file consisting of
+FITS image names and coordinates and descriptions of the detected
+objects.  When you read the input file, the detected object will be
+marked and if you press the right mouse button on the marker, a small
+window with object coordinates will appear.
+
+\subsection{Marker appearance}
+Markers can have different sizes, colors and shapes.  The available
+colors are \verb=red=, \verb=blue=, \verb=green=, \verb=yellow=,
+\verb=magenta= and \verb=cyan=.  Shapes are \verb=circle=, \verb=box=,
+\verb=diamond=, \verb=uptriangle= and \verb=downtriangle=.  
+
+\subsection{Switching markers on and off}
+You can switch the markers on or off for each individual image by
+pressing the \textbf{Mark.} button in the blinker window.  Note that
+markers remain in memory even when they are switched off.  So, if you
+press the right mouse button close to a marker position, a window with
+a magnified part of image around the marker will appear as if the
+markers were displayed.
+
+\section{Blinking}
+
+At any time, \verb=fitsblink= can display only one image. You can
+choose which image is displayed (of those already stored in memory) by
+pressing either \textbf{1.~image} or \textbf{2.~image} button.  It is
+also easy to switch between images within one set of controls.  You
+can either press the left mouse button when the cursor is on the file
+name and select new image from the list which appears, or press the
+middle or the right button to sequentially switch between files.
+
+If you wish to blink images, just press the \textbf{Blink} button.
+All of the currently loaded images will be displayed alternately in
+the order as they were loaded.  You can adjust the time between images
+by pressing left or right arrow in the control inside the blink
+window.
+
+\subsection{Image alignment}
+
+\begin{figure}[h]
+\begin{center}
+\epsfxsize=12cm
+\epsfbox{locked.eps}
+\caption{Image alignment.}
+\label{locked}
+\end{center}
+\end{figure}
+
+Even when the images you want to blink show the same field of view,
+they are typically not completely aligned.  You can align them by the
+following procedure, assuming you already have two (or more) images in
+memory.
+
+\begin{enumerate}
+\item In the control window, display the name of the first image in
+the left control and the name of the second image in the right
+control.  
+\item In the blink window, find a star and center it in the left zoom
+window.
+\item Double click on the star.  Four buttons with arrows and one with
+a circle will appear.  Also under the zoom window a red
+\textbf{Locked!}  indicator will appear. See fig.~\ref{locked}
+\item Click on arrows until left and right zoom windows are centered
+on the same star.
+\item Press the button with circle or double-click again inside the image.
+\end{enumerate}
+
+
+\section{Astrometry}
+
+With \verb=fitsblink= it is possible to measure star positions.  To do
+this, it is first necessary to detect stars on the image, then to find
+a match between the detected stars and stars from a catalog, and to
+make a transformation between the two sets of stars.
+
+\subsection{Detection of stars and other objects}
+
+You start star detection of the currently displayed image by choosing
+the \textbf{Detect stars} item in the \textbf{Astrometry menu}.
+Detection of stars has two steps: in the first step sky background
+levels are determined as a function of position inside the image, and
+in the second step stars are actually counted and their positions and
+intensities are determined.  A list of these quantities, along with a
+star ID number, is stored in the computer memory.  It is possible to
+store the results of star detection into a file by choosing the
+\textbf{Save star list} item.  Format of the output file is fairly
+simple: input file name followed by a list of stars.  For each star,
+there is a star ID, an $x$ coordinate, a $y$ coordinate and a star
+intensity.  If star matching is performed (see
+subsection~\ref{starmatch}) successfully \textbf{Save star list} also
+outputs celestial star coordinates expressed in decimal degrees.
+
+Note that the stars which touch the edge of image are not reported.
+
+\subsubsection{Parameters}
+
+There are seven parameters concerning star detection that can be
+changed.  You can find them in the \textbf{Astrometry Options} window.
+You can set \textbf{Sigma above background} value, which is a
+sensitivity threshold expressed in units of standard deviation of the
+image background level.  Typically you will use values between 3.0 and
+5.0.  The \textbf{Minimal accepted intensity} is a threshold value
+expressed in pixel intensity units.  A star is not detected if its
+total intensity is less than the minimal accepted intensity.  This
+parameter is less important (and a bit redundant) and you can keep it
+close to zero.  The \textbf{Minimal star size in pixels} is mostly
+used to prevent detection of hot pixels as stars.  Normally you will
+keep this value equal 2.
+
+In certain applications it may be desired that the stars lying close
+to the image edge are not detected.  This can be handled by the
+\textbf{Insensitive edge} parameter.  It defines the number of pixels
+from each of the image edges where the stars are not reported.
+Finally, the \textbf{Background grid size} determines the size of grid
+elements inside which background values are determined.  This value
+should not be too big, otherwise gradients in background level may not
+be well detected.  Also, it should not be too small or background will
+be affected by bright stars and other objects more than you want.
+Values between 30 and 50 should be fine for most cases.
+
+From version 2.2 on, \verb=fitsblink= can also use the aperture
+astrometry and photometry.  This is also the default setting.  Star
+coordinates are determined as a centroid of values inside a small
+circle.  To determine the star intensity, an average of pixel values
+between the small circle and a larger circle is calculated and used as
+a background value.  This is then multiplied by the number of pixels
+in the smaller circle which have values above the threshold and
+subtracted from the total signal inside the smaller circle to get the
+star intensity.  For the astrometry of comets you should always use
+the aperture astrometry because the other method may yield wrong
+results due to asymetric coma.  For large values (in comparison to
+star sizes) of the inner circle the aperture astrometry becomes
+practically identical to the alternative method which only uses pixels
+with values above some threshold.
+
+\subsubsection{Star list format}
+
+Here are first few lines from the \verb=98kd3r5.dat= file.
+
+\begin{verbatim}
+Input file name: 98kd3r5.fts.gz
+    0  203.41  425.36    33961.00 222.426891  0.361738 g 03261330   0.10  11.76
+    1  340.29  487.03    21952.00 222.393445  0.289046 g 03261311   0.10  12.39
+    2  211.92  187.61     5991.00 222.553634  0.356243 g 03270218   0.35  13.91
+    3  198.20  369.38     4987.00 222.456765  0.364289 g 03260027   0.08  14.42
+    4   62.06   97.30     4557.00 222.602409  0.435737 g 03270409   0.07  14.39
+    5  219.05  256.28     4551.00 222.516988  0.352721 g 03270212   0.21  14.54
+    6  339.95  424.35     4321.00 222.426869  0.288976
+    7  251.13  269.00     3627.00 222.510071  0.335679 g 03270167   0.12  14.88
+    8  332.75   64.77     2982.00 222.618637  0.291364 g 03270098   0.11  15.07
+    9  254.19  111.81     1924.00 222.593878  0.333415
+   10  150.39  232.54     1657.00 222.529929  0.389214 g 03270315   0.41  15.38
+   11  172.09  507.79     1654.00 222.383064  0.378755
+\end{verbatim}
+In the first line there is the name of the image that was used to
+produce the star list. Columns for the following rows have the
+following meanings:
+
+\begin{enumerate}
+\item Star ID for this image;
+\item Star $x$ coordinate;
+\item Star $y$ coordinate;
+\item Star intensity (sum of pixels belonging to a star minus the
+local background)
+\item Right ascension in decimal degrees.
+\item Declination in decimal degrees
+\item If match with a catalog star is found, a single letter tells
+catalog which was used.  For now \verb=g= stands for the GSC and
+\verb=u= stands for the USNO SA.
+\item If the catalog is GSC, here is a star ID for this catalog.
+\item Residual expressed in arc seconds.
+\item Star magnitude from the catalog.
+\end{enumerate}
+
+Only first four columns are always present, columns from 5 on appear
+only if the coordinate transformation between image and catalog
+coordinates was successfully made and the matching catalog star was
+found.
+
+\subsubsection{Loading a star list}
+
+Star list can also be imported.  Choose \textbf{Load star list} item
+and select the wanted file name.  Please note that the first line in
+the input file is ignored. \verb=Fitsblink= reads star lists it has
+produced, but it should be an easy exercise to convert any star list
+to the desired format: you need a star id in the first column, $x$ and
+$y$ coordinates in the second and third column and star intensity (not
+magnitude) in the fourth column.
+
+\subsubsection{Right mouse button}
+
+After succesfully detecting stars or importing of a star list you can
+display star coordinates by pointing a cursor to it and pressing the
+right mouse button.
+
+
+\subsubsection{Non-interactive mode}
+\label{starcount}
+Extraction of star lists is often desired in a noninteractive mode.
+It is possible to use \verb=fitsblink= in such a mode.  You need a
+soft link named \verb=starcount= (do \verb=ln -s fitsblink starcount=), 
+which points to the \verb=fitsblink= program.  If you run
+\verb=fitsblink= using the name \verb=starcount=, it will perform star
+counting on the input image.  Command line parameters are:
+
+\begin{itemize}
+\item \verb=-l logname=  name of the log file;
+\item \verb=-m gridsize= size of the grid element for background determination;
+\item \verb=-s threshold= intensity threshold expressed in units of
+background variation;
+\item \verb=-i intensity= absolute intensity threshold;
+\item \verb=-c starsize= minimum star linear size (in pixels).
+\item \verb=-b edgesize= size of the edge where stars are not detected.
+\item \verb=-a= switch on aperture astrometry (default).
+\item \verb=-g= switch off aperture astrometry.
+\item \verb=-n innercircle= radius of the inner circle for the
+aperture astrometry.
+\item \verb=-g outercircle= radius of the outer circle for the
+aperture astrometry.
+\end{itemize}
+
+\subsection{Star matching}
+\label{starmatch}
+
+After the star detection, it is possible to match the detected stars
+with stars from a star catalog.  This is an operation which can easily
+fail if you do something wrong.  You should practice on one of the
+test images distributed together with the \verb=fitsblink= program.
+Parameters needed for star matching (WCS values) can be either read
+from the FITS file header or input manually by choosing the
+\textbf{Edit parameters} item from the \textbf{Astrometry} menu.  The
+pixel size values should be correct within few percent.  Also, center
+coordinates should not be off by more than half of the field.  The
+rotation angle usually does not need to be changed because
+\verb=fitsblink= finds (or does not find) a match regardless of image
+orientation for square pixels.
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{parameters.eps}
+\caption{\textbf{Edit parameters} window.}
+\label{parameters}
+\end{center}
+\end{figure}
+
+\subsubsection{You need some catalog}
+
+To do star matching, you need at least one of the supported star
+catalogs.  Currently \verb=fitsblink= reads GSC 1.1 and USNO SA 1.0
+catalogs.  Both are distributed on CD-ROM and must be purchased
+separately.  You need to mount the CD-ROM somewhere in the directory
+structure of your computer and make sure that you are allowed to read
+it.  You choose the catalogs and set their paths in a window which
+appears after you choose the \textbf{Catalogs} item from the
+\textbf{Astrometry} menu (fig.~\ref{catalogs}).
+
+Alternatively, you can copy these catalogs to your hard disk.  In a
+case of GSC, it is possible to use a nice feature of the
+\verb=cfitsio= library that it automatically searches for the
+\verb=file.gz= if it doesn't find \verb=file=.  You can compress all
+\verb=.gsc= files and save some disk space.  Only file 0001.gsc needs
+to be uncompressed.
+ 
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{catalogs.eps}
+\caption{\textbf{Catalogs} window.}
+\label{catalogs}
+\end{center}
+\end{figure}
+
+
+\subsubsection{How it works}
+
+Matching subroutine uses constellations of stars from star lists
+extracted from both the CCD image and the catalog.  In the initial
+phase, it only uses a subset of bright stars from both images.  For
+each star in this subset it forms a constellation using the nearest
+stars from the subset.  Then it tries to find a constellation of stars
+from the catalog which completely or partly matches the reference
+constellation.  Each attempt of matching is given a value which
+indicates a level of similarity between the reference constellation
+and the constellation under investigation.  The maximum value that can
+be achieved is $n(n+1)/2$, where $n$ is the number you type in
+\textbf{Number of stars in constellation} field of the
+\textbf{Astrometry options} form.  This number is never actually
+reached because stars from the CCD image never exactly match stars
+from the catalogue.
+
+If the match is successful, a bilinear transformation between the
+coordinate system is calculated and results of matching are presented
+in a window.  It is possible to write the newly calculated WCS values
+directly into the FITS header (see also non-interactive mode).  This
+is only possible for the noncompressed images, because the cfitsio
+library does not write the compressed images yet.
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{matched.eps}
+\caption{Display of input and calculated WCS coordinates.}
+\label{matched}
+\end{center}
+\end{figure}
+
+
+\subsubsection{What if matching fails?}
+
+There may be many reasons why matching between star lists extracted
+from a CCD image and a catalog fails.  They are the following:
+
+\begin{itemize}
+\item \emph{Wrong image coordinates.}  Although \verb=fitsblink= is
+tolerant to small discrepancies of image center coordinates, it can
+not search a very wide field around the assumed center coordinates.
+Catalog image is extended 30 \% in each of four directions, so it
+covers 2.56 times the area that CCD image has.  Anything outside this
+can not be matched.
+
+\item \emph{Wrong pixel angular sizes.}  The algorithm for star
+detection is not scale insensitive, as is, for example, \verb=match=
+written by Michael Richmond.  So, you need to know actual pixel
+dimensions rather accurately, to some 1 \%.  If you poorly know pixel
+dimensions, you should recall \textbf{Astrometry options} input form
+and enlarge \textbf{Maximal positional error in pixels} value to 20 or
+40 pixels.  You will get some warnings, but you can ignore them.  If
+you do this, star matching routine will be more tolerant.  If matching
+succeeds, you will get the calculated pixel sizes and you should use
+these values in the future.  However, if you don't know angular pixel
+size with better then 10 \% accuracy, you really should rethink your
+intention to do astrometry.
+
+\item \emph{Bad choice of star catalog.}  If angular dimensions of
+your CCD image are very small (15' or less), it may happen that you
+will not have enough comparison stars from the catalog.  It is better
+to use USNO SA catalog for small fields.  On the other side, in large
+fields there will be a lot of bright stars which are typically absent
+from the USNO SA catalog, so the program will not find comparison
+stars in the catalog.  So, for large fields, it is better to use GSC
+catalog.
+\end{itemize}
+
+If you are reasonably sure about the correctness of the star field
+coordinates as well as the pixel size(s) and you still can not get a
+match, try the following in \textbf{Astrometry options} form:
+
+\begin{enumerate}
+\item Decrease \textbf{Minimal value to accept constellation}.  This
+helps if you don't have enough stars either on the CCD image or in the
+catalog.  If you decrease this value too much, you will get a lot of
+false matches and the coordinate transformation you will get will be
+wrong. 
+\item Increase \textbf{Number of bright stars in initial matching}.
+This may help if the CCD field and the catalog field only partially
+overlap or if you get a lot of spurious objects near some bright star
+or star cluster.  Increasing this number too much may increase
+processing time dramatically.
+\item Increase \textbf{Number of stars in constellation}.  Bigger
+constellations are more likely to have some stars in common.
+Increases processing time.  Do not use more than 20 stars.
+\item Increasing \textbf{Maximal positional error in pixels} will
+treat incorrect pixel sizes but also increase matching time and
+possibly cause false matches.
+\end{enumerate}
+
+Do the above parameter adjustment in the order as described here.  As
+your despair increases, start to combine changes of different
+parameters until you finally get a match.
+
+\subsubsection{Non-interactive mode}
+\label{catalog}
+Star matching with a catalog can be done also in a command line mode.
+By making a link \verb=catalog= which points to \verb=fitsblink= it is
+possible to run \verb=fitsblink= with a command \verb=catalog=.
+Output file name will be made automatically by stripping off whatever
+follows the last ``.'' and replacing it by an extension \verb=dat=.
+Some attention is required here because there are chances that the
+output \verb=.dat= file gets the same name as the input \verb=.dat=
+file.  This may not be desired in some cases.  A possible solution for
+this is to rename the input \verb=.dat= file.
+
+\begin{itemize}
+\item \verb=-l= log file name
+\item \verb=-b= number of bright stars
+\item \verb=-a= right ascension of the center pixel (in decimal degrees)
+\item \verb=-d= declination (in decimal degrees)
+\item \verb=-w= width of a pixel (in arc seconds)
+\item \verb=-h= height of a pixel (in arc seconds)
+\item \verb=-x= number of pixels in $x$ direction
+\item \verb=-y= number of pixels in $y$ direction
+\item \verb=-f= name of the input star list
+\item \verb=-n= number of stars in constellation
+\item \verb=-m= minimal constellation value
+\item \verb=-e= allowed arror in pixels
+\item \verb=-i= allowed intensity error (factor) 
+\item \verb=-r= residual in arc-seconds
+\item \verb=-c= catalog name and path (eg. \verb=usno:/cdrom=, can be
+also \verb=gscn:= for GSC North or \verb=gscs:= for GSC South)
+\item \verb=-W= write newly calculated WCS values into the FITS file header
+\end{itemize}
+
+Here is a command line useful for the example image \verb=98kd3r5.fts.gz=:
+
+\begin{verbatim}
+catalog -f 98kd3r5.dat -a 222.5 -d 0.366 -w 1.92 -h 1.92 \
+	-c gscn:/cdrom -x 356 -y 541
+\end{verbatim}
+The backslash above means continuation of the command line.  Please
+note again that the center coordinates are specified in DECIMAL
+degrees.  Default values for catalog matching are the same as in the
+interactive mode.   As in the interactive mode, it is not possible to
+write the WCS values into the header (the -W option) if the image file
+is compressed.
+
+\subsection{Astrometry}
+\label{astrometry}
+Finally!  You successfully made all of the previous steps and you want
+to do astrometry of the asteroid you just imaged.  Go to the
+\textbf{Astrometry} menu and choose the \textbf{Do astrometry} item.
+When inside the image, cursor shape will change from a box to a
+cross.  Now point to some of the objects (red circles) and click left
+button on it.  You will be asked for the object designation.  When you
+enter it and click on the OK button, a window with the report suitable
+for sending to MPC (Minor Planet Center) will appear.  At this point
+you can either send the report immediatelly or proceed with further
+astrometry.  Coordinates are for the equinox J2000.
+
+\subsection{Sending a report}
+\label{report}
+
+The report window is used for editing and sending astrometry positions
+to the MPC.  It is shown in fig.~\ref{astrometry_report}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{astrometry_report.eps}
+\caption{Astrometry report window.}
+\label{astrometry_report}
+\end{center}
+\end{figure}
+
+Sending astrometry reports to MPC requires certain
+format. \verb=Fitsblink= writes information about the measurement in
+this format.  Additionally, you have to give some basic information
+about you and about the measurement.  If this information is present
+in the header of the image file or in the \verb=.fitsblinkrc= file, it
+will be inserted in the message if you press the \textbf{Insert
+header} button.  Otherwise you will have to type this information by
+yourself.  You can use the \textbf{Send astrometry report} form as a
+primitive line editor and add additional information to the file which
+will be sent.  When you press the \textbf{Send} button and comfirm
+your decision, the message is sent to whatever addresses you wrote
+into \textbf{To:} and \textbf{CC:} fields.  So, be careful with this.
+
+\subsection{Settings}
+
+The following default settings can be written into file
+\verb=$HOME/.fitsblinkrc= by \verb=fitsblink= and then read at the
+start-up time.  
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{catalog_paths.eps}
+\caption{Catalog paths: these are the places where the supported catalogs
+can be found.}
+\label{catalog_paths}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{observatory.eps}
+\caption{Observatory settings: Observatory code, observer name(s),
+telescope name and size and instrument type.}
+\label{observatory}
+\end{center}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{display.eps}
+\caption{Display settings: color or grey level, delay between blinking
+images and dimensions of the image window.}
+\label{display}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{mail.eps}
+\caption{Mail defaults.}
+\label{mail}
+\end{center}
+\end{figure}
+
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{telescope.eps}
+\caption{Telescope control commands.}
+\label{telescope}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{camera.eps}
+\caption{Camera control commands.}
+\label{camera}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{countdefs.eps}
+\caption{Default parameters for star detection routines.}
+\label{countdefs}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{matchdefs.eps}
+\caption{Default parameters for catalog matching routines.}
+\label{matchdefs}
+\end{center}
+\end{figure}
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{help.eps}
+\caption{Help system.}
+\label{help}
+\end{center}
+\end{figure}
+
+
+\section{Telescope and CCD camera control}
+
+\verb=Fitsblink= has some ability to control a computer controlled
+telescope.  This option was included specifically for the use with the
+robotic telescope operated at the \v{C}rni Vrh observatory.  Therefore,
+there may not be enough flexibility to control some other telescopes.
+Also, only very basic functions are supported.  The program assumes
+that all of the functions that access both the telescope and the
+camera are accessed through a program called \verb=tx=.  As you
+probably don't have a program with such a name for telescope and
+camera control, you will need to make a script or a small program
+named \verb=tx= which will convert the commands run by
+\verb=fitsblink= into a your specific telescope driving program.
+
+\begin{figure}
+\begin{center}
+\epsfxsize=8cm
+\epsfbox{control.eps}
+\caption{Telescope and camera control window.}
+\label{control}
+\end{center}
+\end{figure}
+
+
+\subsection{Telescope commands}
+
+At the moment, \verb=fitsblink= knows the following telescope
+commands:
+
+\begin{itemize}
+\item \textbf{Start} (\verb+point start+).  Starts the telescope
+sidereal motion.
+\item \textbf{Park} (\verb+point park+).  Go to the park position.
+\item \textbf{Zero} (\verb+zero ra=RA dec=DEC+).  Tell the
+telescope server that the current coordinates  are RA and DEC.
+\item \textbf{Go!} (\verb+point ra=RA dec=DEC+).  Go to the desired
+position.  \verb=RA= (hh:mm:ss.s) and \verb=DEC= (+dd:mm:ss.s) are
+templates which are replaced by the actual values from the input
+fields in the \textbf{Telescope and camera control} window.
+\item \textbf{Read} (\verb=where=) Reads out the telescope position.
+\end{itemize}
+
+Also, there are some commands for CCD camera control.
+
+\begin{itemize}
+\item \textbf{Read} camera temperature.
+\item \textbf{Set} {\verb+ccd temp=TEMP+} camera temperature.  TEMP
+is a template which is replaced by a value from the temperature field.
+\item \textbf{Expose} {\verb+ccd file=FILE time=TIME [dark]+}  Make
+an exposition for TIME seconds and FILE is the output file name.
+\item \textbf{Dark} image can be taken if the appropriate button is
+pressed.
+\item \textbf{Center} {\verb+center time=TIME+} Take a exposition for
+TIME seconds, find the brightest star and move the telescope so that
+the star is centered in the middle of the image.
+\end{itemize}
+
+The provided commands should be enough for using the essential
+commands of most telescopes and CCD cameras.  The problem is with the
+readout of telescope position and camera temperature which is quite
+specific and hard coded in the \verb=telescope.c= source file.  For
+readout of the telescope position, \verb=fitsblink= assumes response
+in form \verb+where done ra=RA dec=DEC+, followed by two empty lines,
+where RA and DEC have to be replaced by the actual values expressed in
+the same units as described above.  Similarly, for CCD camera
+temperature readout, the response from the camera server should be
+\verb+ccd done temp=TEMP+ followed by two empty lines, where TEMP is a
+real number.  So, the basic framework for any other telescope is here
+and you only need to modify the \verb=telescope.c= and
+\verb=settings.c= files to adapt \verb=fitsblink= if you have your own
+ideas of how to implement communication between \verb=fitsblink= and
+outside world.
+
+\subsection{Access to catalogs}
+
+It is possible to access object catalogs from the telescope control
+form and to transfer the coordinates from a catalog entry to the RA
+and DEC fields in order to use the \textbf{Zero} and \textbf{Go!}
+functions.  Catalog entries should be ordered in some way.  To be
+useful, they must have a right ascension in HH:MM:SS.ss format in
+the column 4 and a declination in +DD:MM:SS.s format in the column 5.
+To transfer object coordinates to RA and DEC fields, just click on the
+chosen entry.  Few entries from our catalog of very bright stars
+follow here:
+
+\begin{verbatim}
+alf And    2000   0:08:23.2  +29:05:26   2.06 -0.11
+bet Cas    2000   0:09:10.6  +59:08:59   2.27  0.34
+gam Peg    2000   0:13:14.1  +15:11:01   2.83 -0.23
+\end{verbatim}
+Note that it doesn't matter what is in other columnns nor have many
+columns exist in each line.  It is only important to have correct
+coordinates in columns 4 and 5.  Columns are white space separated.
+\end{document}
+

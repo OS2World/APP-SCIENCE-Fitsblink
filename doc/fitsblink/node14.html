@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>13. Telescope and CCD camera control</TITLE>
+<META NAME="description" CONTENT="13. Telescope and CCD camera control">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node15.html">
+<LINK REL="previous" HREF="node13.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node15.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html299"
+ HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html296"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html290"
+ HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html298"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html300"
+ HREF="node15.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html297"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html291"
+ HREF="node13.html">12. Astrometry</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html301"
+ HREF="node14.html#SECTION000141000000000000000">13.1 Telescope commands</A>
+<LI><A NAME="tex2html302"
+ HREF="node14.html#SECTION000142000000000000000">13.2 Access to catalogs</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION000140000000000000000">
+13. Telescope and CCD camera control</A>
+</H1>
+
+<P>
+<code>Fitsblink</code> has some ability to control a computer controlled
+telescope.  This option was included specifically for the use with the
+robotic telescope operated at the Crni Vrh observatory.  Therefore,
+there may not be enough flexibility to control some other telescopes.
+Also, only very basic functions are supported.  The program assumes
+that all of the functions that access both the telescope and the
+camera are accessed through a program called <code>tx</code>.  As you
+probably don't have a program with such a name for telescope and
+camera control, you will need to make a script or a small program
+named <code>tx</code> which will convert the commands run by
+<code>fitsblink</code> into a your specific telescope driving program.
+
+<P>
+<BR>
+<DIV ALIGN="CENTER"><A NAME="control">&#160;</A><A NAME="305">&#160;</A>
+<TABLE WIDTH="50%">
+<CAPTION><STRONG>Figure 15:</STRONG>
+Telescope and camera control window.</CAPTION>
+<TR><TD><IMG
+ WIDTH="362" HEIGHT="280"
+ SRC="img16.gif"
+ ALT="\begin{figure}\begin{center}
+\epsfxsize=8cm
+\epsfbox{control.eps}
+\end{center}\end{figure}"></TD></TR>
+</TABLE>
+</DIV>
+<BR>
+<P>
+
+<H2><A NAME="SECTION000141000000000000000">
+13.1 Telescope commands</A>
+</H2>
+
+<P>
+At the moment, <code>fitsblink</code> knows the following telescope
+commands:
+
+<P>
+<UL>
+<LI><B>Start</B> (<code>point start</code>).  Starts the telescope
+sidereal motion.
+<LI><B>Park</B> (<code>point park</code>).  Go to the park position.
+<LI><B>Zero</B> (<code>zero ra=RA dec=DEC</code>).  Tell the
+telescope server that the current coordinates  are RA and DEC.
+<LI><B>Go!</B> (<code>point ra=RA dec=DEC</code>).  Go to the desired
+position.  <code>RA</code> (hh:mm:ss.s) and <code>DEC</code> (+dd:mm:ss.s) are
+templates which are replaced by the actual values from the input
+fields in the <B>Telescope and camera control</B> window.
+<LI><B>Read</B> (<code>where</code>) Reads out the telescope position.
+</UL>
+<P>
+Also, there are some commands for CCD camera control.
+
+<P>
+<UL>
+<LI><B>Read</B> camera temperature.
+<LI><B>Set</B> <code>ccd temp=TEMP</code> camera temperature.  TEMP
+is a template which is replaced by a value from the temperature field.
+<LI><B>Expose</B> <code>ccd file=FILE time=TIME [dark]</code>  Make
+an exposition for TIME seconds and FILE is the output file name.
+<LI><B>Dark</B> image can be taken if the appropriate button is
+pressed.
+<LI><B>Center</B> <code>center time=TIME</code> Take a exposition for
+TIME seconds, find the brightest star and move the telescope so that
+the star is centered in the middle of the image.
+</UL>
+<P>
+The provided commands should be enough for using the essential
+commands of most telescopes and CCD cameras.  The problem is with the
+readout of telescope position and camera temperature which is quite
+specific and hard coded in the <code>telescope.c</code> source file.  For
+readout of the telescope position, <code>fitsblink</code> assumes response
+in form <code>where done ra=RA dec=DEC</code>, followed by two empty lines,
+where RA and DEC have to be replaced by the actual values expressed in
+the same units as described above.  Similarly, for CCD camera
+temperature readout, the response from the camera server should be
+<code>ccd done temp=TEMP</code> followed by two empty lines, where TEMP is a
+real number.  So, the basic framework for any other telescope is here
+and you only need to modify the <code>telescope.c</code> and
+<code>settings.c</code> files to adapt <code>fitsblink</code> if you have your own
+ideas of how to implement communication between <code>fitsblink</code> and
+outside world.
+
+<P>
+
+<H2><A NAME="SECTION000142000000000000000">
+13.2 Access to catalogs</A>
+</H2>
+
+<P>
+It is possible to access object catalogs from the telescope control
+form and to transfer the coordinates from a catalog entry to the RA
+and DEC fields in order to use the <B>Zero</B> and <B>Go!</B>
+functions.  Catalog entries should be ordered in some way.  To be
+useful, they must have a right ascension in HH:MM:SS.ss format in
+the column 4 and a declination in +DD:MM:SS.s format in the column 5.
+To transfer object coordinates to RA and DEC fields, just click on the
+chosen entry.  Few entries from our catalog of very bright stars
+follow here:
+
+<P>
+<PRE>
+alf And    2000   0:08:23.2  +29:05:26   2.06 -0.11
+bet Cas    2000   0:09:10.6  +59:08:59   2.27  0.34
+gam Peg    2000   0:13:14.1  +15:11:01   2.83 -0.23
+</PRE>Note that it doesn't matter what is in other columnns nor have many
+columns exist in each line.  It is only important to have correct
+coordinates in columns 4 and 5.  Columns are white space separated.
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html299"
+ HREF="node15.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html296"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html290"
+ HREF="node13.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html298"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html300"
+ HREF="node15.html">About this document ...</A>
+<B> Up:</B> <A NAME="tex2html297"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html291"
+ HREF="node13.html">12. Astrometry</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

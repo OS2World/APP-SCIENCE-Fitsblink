@@ -1,0 +1,215 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>2. Installation</TITLE>
+<META NAME="description" CONTENT="2. Installation">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node4.html">
+<LINK REL="previous" HREF="node2.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node4.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html145"
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html142"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html136"
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html144"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+ HREF="node4.html">3. Quick start tutorial</A>
+<B> Up:</B> <A NAME="tex2html143"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html137"
+ HREF="node2.html">1. Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html147"
+ HREF="node3.html#SECTION00031000000000000000">2.1 Hardware and software requirements</A>
+<LI><A NAME="tex2html148"
+ HREF="node3.html#SECTION00032000000000000000">2.2 Getting executables</A>
+<LI><A NAME="tex2html149"
+ HREF="node3.html#SECTION00033000000000000000">2.3 Compiling</A>
+<LI><A NAME="tex2html150"
+ HREF="node3.html#SECTION00034000000000000000">2.4 Installation</A>
+<LI><A NAME="tex2html151"
+ HREF="node3.html#SECTION00035000000000000000">2.5 Known bugs</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00030000000000000000">
+2. Installation</A>
+</H1>
+
+<P>
+
+<H2><A NAME="SECTION00031000000000000000">
+2.1 Hardware and software requirements</A>
+</H2>
+
+<P>
+The <code>fitsblink</code> program will in principle run on a PC 486, 8 MB
+of RAM, 1024x768 pixel graphics card and 15'' color monitor.  It will
+be rather slow, however, and the amount of images loaded at one time
+will be limited.  The recommended minimal configuration is Pentium 200
+MHz, 32 MB RAM, 1280x1024 video card and 17'' monitor or better.
+
+<P>
+Other platforms: any equivalently powerful Unix workstations should be
+good enough.  However, it is up to you to obtain appropriate libraries
+and compile the program.  <code>Fitsblink</code> uses <code>cfitsio 2.025</code>
+and <code>xforms 0.88</code> libraries.  In principle the version 1.42 of
+<code>cfitsio</code> should work, too.  Please do not attempt to use any
+earlier version of the <code>xforms</code> library because the program will
+most probably not work with it.  
+
+<P>
+<code>Fitsblink</code> is also reported to work under the OS/2 + XFREE86
+operating system thanks to Duncan Munro from Canada.
+
+<P>
+Version 2.11 of <code>fitsblink</code> was successfully compiled on
+SUNOS 4.3 but some modifications of the <code>makefile</code> and commenting
+out some <code>#include</code> statements were necessary.  Unfortunately,
+binaries are not available on <code>fitsblink</code> home page. 
+
+<P>
+To do astrometry, you also need CD-ROMs with GSC 1.1 star catalog
+and/or USNO SA 1.0 catalog.  In principle you can also have exact
+copies of these catalogs on hard disk, if you wish to avoid mounting
+and unmounting of CD-ROM drives and your hard disk is big enough.
+
+<P>
+
+<H2><A NAME="SECTION00032000000000000000">
+2.2 Getting executables</A>
+</H2>
+
+<P>
+You can get the compiled program for the Linux system on
+<BR>
+<A NAME="tex2html3"
+ HREF="http://kronos.ijs.si/~jure/fitsblink/fitsblink.html">http://kronos.ijs.si/~jure/fitsblink/fitsblink.html</A>.
+
+<P>
+
+<H2><A NAME="SECTION00033000000000000000">
+2.3 Compiling</A>
+</H2>
+
+<P>
+Sources of <code>fitsblink</code> are available at
+<BR>
+<A NAME="tex2html4"
+ HREF="http://kronos.ijs.si/~jure/fitsblink/fitsblink.html">http://kronos.ijs.si/~jure/fitsblink/fitsblink.html</A>.
+You can find the latest version of the <code>cfitsio</code> library at
+<BR>
+<A NAME="tex2html5"
+ HREF="ftp://legacy.gsfc.nasa.gov/software/fitsio/c/">ftp://legacy.gsfc.nasa.gov/software/fitsio/c/</A>
+and the <code>xforms 0.88</code> library at
+<BR>
+<A NAME="tex2html6"
+ HREF="http://bragg.phys.uwm.edu/xforms">http://bragg.phys.uwm.edu/xforms</A>.
+If you really want to compile <code>fitsblink</code> by yourself, make sure
+that you install these libraries properly.  Then edit the
+<code>makefile</code> and enter proper paths for include files and
+libraries. You also need to change <code>C</code> compiler switches if you
+don't use <code>GNU C</code>.  Then type make and hope for the best.  If you
+succeed in compiling <code>fitsblink</code> for some other platform and you
+wish to share the binary code with other people, you are welcome to
+send it to me and I will add it to the <code>fitsblink</code> home page.
+
+<P>
+
+<H2><A NAME="SECTION00034000000000000000">
+2.4 Installation</A>
+</H2>
+
+<P>
+When you get a working binary, you can install it to a directory which
+is listed in your path, for example <code>/usr/local/bin</code>.  When you
+run <code>fitsblink</code> for the first time, it will complain about not
+finding a parameter file.  Just proceed with the program and choose
+the <B>Settings</B> item in the <B>Astrometry</B> menu.
+Write in your default settings and press the <B>Save</B> button. A
+file which contains your settings is named <code>.fitsblinkrc</code> and is
+written to your home directory.  For those less familiar with Unix,
+files starting with a dot are ``hidden'', i.e. normally not shown by
+the <code>ls</code> command.  
+
+<P>
+The user manual (this one) serves also as the help file. It is a good
+idea to put it to some known place, such as
+<code>/usr/local/lib/fitsblink</code>.
+
+<P>
+You can install the <code>fitsblink</code> program (default location
+<code>/usr/local/bin</code>) and user manual (default location
+<code>/usr/local/lib/fitsblink</code> by typing <code>make install</code>.  You
+must be root for this.
+
+<P>
+
+<H2><A NAME="SECTION00035000000000000000">
+2.5 Known bugs</A>
+</H2>
+
+<P>
+<UL>
+<LI>After erasing images from the memory sometimes a segmentaion fault
+appears.  This bug appears relatively infrequently and is difficult to
+reproduce.  The author would be grateful on any documented example how
+to reproduce this or any other bug reliably.
+<LI>You can't use USNO catalog on big-endian computers.
+</UL>
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html145"
+ HREF="node4.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html142"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html136"
+ HREF="node2.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html144"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html146"
+ HREF="node4.html">3. Quick start tutorial</A>
+<B> Up:</B> <A NAME="tex2html143"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html137"
+ HREF="node2.html">1. Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

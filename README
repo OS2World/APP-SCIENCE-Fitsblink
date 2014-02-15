@@ -1,0 +1,20 @@
+This is README file of the FITSBLINK 2.01 program.
+Author:  Jure Skvarc, jure.skvarc@ijs.si
+
+TO COMPILE:
+	Obtain and install xforms and cfitsio libraries.
+	Edit makefile and enter proper paths.
+	Type make to produce fitsblink program.
+	To make static version, type make static.
+
+TO INSTALL:
+	Become root.
+	Type make install.
+
+DOCUMENTATION:
+	In doc directory you will find fitsblink.tex and fitsblink.dvi.
+	In doc/fitsblink there is fitsblink.html.
+	First read the Quick start tutorial.
+
+
+(end of README)

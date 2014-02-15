@@ -1,0 +1,181 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>7. Loading images</TITLE>
+<META NAME="description" CONTENT="7. Loading images">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node9.html">
+<LINK REL="previous" HREF="node7.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node9.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html212"
+ HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html209"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html203"
+ HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html211"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html213"
+ HREF="node9.html">8. Erasing an image</A>
+<B> Up:</B> <A NAME="tex2html210"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html204"
+ HREF="node7.html">6. Getting help</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00080000000000000000">&#160;</A>
+<A NAME="loading">&#160;</A>
+<BR>
+7. Loading images
+</H1>
+To blink images or do astrometry you must first load them into memory.
+The <code>fitsblink</code> program accepts 16-bit two-dimensional FITS
+images.  The program also reads the header and extracts the following
+information:
+
+<P>
+<UL>
+<LI>WCS values from the CRVAL, CRPIX, CDELT and CROT keywords.  If
+these keywords are present, the program will also display celestial
+coordinates at the cursor position.
+<LI>Time and date of the mid-exposure.  It seems that there is no
+standard on which keywords define the time of mid-exposure.  Different
+CCD camera manufacturers use different keywords in programs which
+aquire data from cameras and write a FITS file.  <code>Fitsblink</code>
+tries the following things to calculate the correct time of
+mid-exposure: 
+<DL COMPACT>
+<DT>1.
+<DD>Checks for UT-CENT keyword.  If this keyword is present it takes
+its value as the time of mid-exposure.
+<DT>2.
+<DD>If UT-CENT is not present, it calculates time of mid-exposure
+from values of UT-START or TIME-BEG keywords and EXPOSURE keyword.
+<DT>3.
+<DD>If there is no EXPOSURE keyword, time is calculated as the mean
+time of UT-START or TIME-BEG and UT-END or TIME-END values.
+<DT>4.
+<DD>EXPOSURE and EXPTIME keywords are considered to be synonims.
+<DT>5.
+<DD>Date expressed in either dd/mm/yy, dd/mm/yyyy, dd-mm-yyy or
+yyyy-mm-dd formats is read from the value of the DATE-OBS keyword.  It
+is understood that the date is valid for the start of exposure and the
+program makes necessary correction if the mid-exposure falls on the
+next day.
+</DL>
+<LI>Telescope description from the TELESCOP keyword.
+<LI>Instrument (CCD camera) name from the INSTRUME keyword.
+<LI>Observer name(s) from the OBSERVER keyword.
+</UL>
+<P>
+To load an image, press the "Load" button.  A file selector will
+appear and you can navigate through directories to find the wanted
+file.  When you find it, double-click on it or select it and press the
+<B>Ready</B> button.  It is also possible to type in the file name.
+<code>Fitsblink</code> loads either FITS images or gzipped fits images,
+thanks to the CFITSIO library.  After loading it tries to make an
+automatic level adjustment so that stars exhibit good contrast
+relatively to the background.  This procedure may produce not so good
+results for images with very bright objects or if some non-image data
+is stored in the image area.  When the image is loaded, it is scaled
+and transfered to an X Windows structure called Pixmap for faster
+blinking operation.  The original image data remains in the memory.
+<code>Fitsblink</code> can in principle read unlimited number of images.
+You are limited by the available memory of your computer and X
+terminal, of course.
+
+<P>
+There is an alternative method of image loading, which is particularly
+suitable when the images are first processed by some program which
+analyses the images and finds how are they shifted and identifies
+moving objects.  You need to prepare a file with the following
+structure:
+
+<P>
+<PRE>
+filename1 x_offset1 y_offset1
+filename2 x_offset2 y_offset2
+         .
+         .
+         .
+</PRE>
+<P>
+If you name this file eg. <code>test.inp</code>, <code>fitsblink</code> will load
+files named in the first column and shift the images by the offsets
+given in the second and third columns.  The purpose of this is to have
+properly aligned images at the moment they are loaded into memory.
+
+<P>
+Additionally, following every line with the file name it is possible
+to append a list of marker coordinates.  For every marker you need to
+specify also its size and a word describing the object it represents.
+You can also specify marker color and marker shape.  There must be
+four, five or six white-space separated items in such a line, for
+example
+
+<P>
+<PRE>
+filename1 x_offset1 y_offset1
+45 100 5 asteroid red box
+67 29 5 asteroid blue 
+87 216 5 nova 
+filename2 x_offset2 y_offset2
+         .
+         .
+         .
+</PRE>
+<P>
+The default color is <code>red</code> and the default shape is
+<code>circle</code>.  More about markers in section&nbsp;<A HREF="node11.html#markers">10</A>.  Do not
+forget to press return in the last line of the batch file.  For a
+practical example, see the <B>Quick tutorial section</B>.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html212"
+ HREF="node9.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html209"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html203"
+ HREF="node7.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html211"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html213"
+ HREF="node9.html">8. Erasing an image</A>
+<B> Up:</B> <A NAME="tex2html210"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html204"
+ HREF="node7.html">6. Getting help</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,258 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<!--Converted with LaTeX2HTML 98.1p1 release (March 2nd, 1998)
+originally by Nikos Drakos (nikos@cbl.leeds.ac.uk), CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>3. Quick start tutorial</TITLE>
+<META NAME="description" CONTENT="3. Quick start tutorial">
+<META NAME="keywords" CONTENT="fitsblink">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<LINK REL="STYLESHEET" HREF="fitsblink.css">
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="fitsblink.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html161"
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html158"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html152"
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html160"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html162"
+ HREF="node5.html">4. Starting fitsblink</A>
+<B> Up:</B> <A NAME="tex2html159"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html153"
+ HREF="node3.html">2. Installation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><strong>Subsections</strong></A>
+<UL>
+<LI><A NAME="tex2html163"
+ HREF="node4.html#SECTION00041000000000000000">3.1 Installing and running for the first time</A>
+<LI><A NAME="tex2html164"
+ HREF="node4.html#SECTION00042000000000000000">3.2 First blink</A>
+<LI><A NAME="tex2html165"
+ HREF="node4.html#SECTION00043000000000000000">3.3 Star detection</A>
+<LI><A NAME="tex2html166"
+ HREF="node4.html#SECTION00044000000000000000">3.4 Matching the catalog</A>
+<LI><A NAME="tex2html167"
+ HREF="node4.html#SECTION00045000000000000000">3.5 Reading object positions</A>
+<LI><A NAME="tex2html168"
+ HREF="node4.html#SECTION00046000000000000000">3.6 Astrometry reports</A>
+<LI><A NAME="tex2html169"
+ HREF="node4.html#SECTION00047000000000000000">3.7 Markers</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+
+<H1><A NAME="SECTION00040000000000000000">
+3. Quick start tutorial</A>
+</H1>
+
+<P>
+This section lets you go through some of the <code>fitsblink</code>
+functions without reading the rest of the manual, just to get some
+overview of the available functions.
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+3.1 Installing and running for the first time</A>
+</H2>
+
+<P>
+Apart from a working <code>fitsblink</code> program you also need the
+example images which can be found on the <code>fitsblink</code> home page.
+Un-tar the file by typing <code>tar xf examples.tar</code>.  A directory
+named <code>fitsblink_examples</code> will be created and you will find
+there the following files:
+
+<P>
+<PRE>
+98kd3r5-98kd3r6.inp
+98kd3r5.dat
+98kd3r5.fts.gz
+98kd3r6.dat
+98kd3r6.fts.gz
+coordinates
+</PRE>
+<P>
+Go to the <code>fitsblink_examples</code> directory and start
+<code>fitsblink</code>.  If the <code>$HOME/.fitsblinkrc</code> file does not
+exist yet, <code>fitsblink</code> will complain.  Just press <B>OK</B>
+button and from the <B>Astrometry</B> menu choose the
+<B>Settings</B> item.  Set all of the settings and save them by
+pressing the <B>Save</B> button.  Next time you run <code>fitsblink</code>
+it should not complain anymore about the missing parameter file.
+
+<P>
+
+<H2><A NAME="SECTION00042000000000000000">
+3.2 First blink</A>
+</H2>
+Now press the left <B>Load</B> button and choose
+<code>98kd3r5.fts.gz</code> file from the file selector.  The image will be
+loaded and displayed in the blink window.  Repeat this procedure with
+the <code>98kd3r6.fts.gz</code> file.  Now you have two images in the memory
+and you can blink them just by pressing the <B>Blink</B> button.
+The images will be alternately displayed on the screen.  You can
+adjust blinking frequency with the <B>Delay</B> counter.  You
+noticed that the images are not aligned perfectly.  So, center a star
+in the left small window with the magnified image and double-click on
+it.  Four cursor buttons will appear.  Click on them until small
+images are aligned and then press the button with a blue circle.  The
+images will be aligned now.  If you look for a moving objects, you
+will find one right to the center of the screen. To stop blinking,
+press <B>Blink</B> again.
+
+<P>
+
+<H2><A NAME="SECTION00043000000000000000">
+3.3 Star detection</A>
+</H2>
+Before you can do astrometry, stars have to be detected.  Open the
+<B>Astrometry</B> menu and choose <B>Detect stars</B>.  The
+detected objects will be marked by red circles.  You may want to
+change sensitivity.  Choose <B>Options</B>, change values in the
+<B>Star counting</B> frame and run <B>Detect stars</B> again.
+After that, press the <B>Defaults</B> button and detect stars again.
+
+<P>
+
+<H2><A NAME="SECTION00044000000000000000">
+3.4 Matching the catalog</A>
+</H2>
+By now you have already detected objects and you want to get the
+coordinates of that moving object you spotted in the blinking images.
+Things become a little more real now: you need either GSC 1.1 or USNO
+SA 1.0 catalog.  Typically, you will have them on a CDROM.  If you
+haven't done so before, mount the CDROM somewhere in your file system.
+Choose the <B>Catalogs</B> item and write in the mounting point of
+the catalog.  Also, press the check button for the catalog you have.
+Then choose <B>Edit parameters</B> and write in approximate
+coordinates of the image center: RA=14h50m and DEC=0d22'.  Pixel sizes
+should be already written in: 1.92'' in both directions.  Do not
+forget to press return or tabulator after you write values in the
+input fields!  Now choose <B>Match stars</B> and see what happens.
+If you followed the previous steps, you should get a successful match
+with the default parameters regardless whether you used GSC or USNO SA
+catalog..
+
+<P>
+
+<H2><A NAME="SECTION00045000000000000000">
+3.5 Reading object positions</A>
+</H2>
+
+<P>
+As soon you detect stars, you can also get their positions by pressing
+the RIGHT mouse button when you are close to one of the DETECTED
+objects.  A window with a magnified part of the image around the
+object position will appear.  You will get object <I>x</I> and <I>y</I>coordinates, as well as object intensity, all in pixel units.  If the
+WCS values are present in the image header or if you made a successful
+match with catalog stars, you will also see the object's celestial
+coordinates.  For the example image <code>98kd3r5.fts.gz</code> the
+coordinates of the moving object are:
+
+<P>
+<TABLE CELLPADDING=3 BORDER="1">
+<TR><TD ALIGN="LEFT">Detection method</TD>
+<TD ALIGN="LEFT">Catalog</TD>
+<TD ALIGN="CENTER">RA</TD>
+<TD ALIGN="CENTER">Dec.</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GSC 1.1</TD>
+<TD ALIGN="LEFT">14:50:00.61</TD>
+<TD ALIGN="CENTER">00:20:26.9</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">GSC 1.1 + USNO SA 1.0</TD>
+<TD ALIGN="LEFT">14:50:00.61</TD>
+<TD ALIGN="CENTER">00:20:26.7</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+<TR><TD ALIGN="LEFT">USNO SA 1.0</TD>
+<TD ALIGN="LEFT">14:50:00.60</TD>
+<TD ALIGN="CENTER">00:20:26.6</TD>
+<TD ALIGN="CENTER">&nbsp;</TD>
+</TR>
+</TABLE>
+<P>
+
+<H2><A NAME="SECTION00046000000000000000">
+3.6 Astrometry reports</A>
+</H2>
+
+<P>
+There is another way to get object coordinates: choose the <B>Do
+astrometry</B> item.  You will see the cursor change shape into a
+cross. Now press the LEFT mouse button on a selected object.  An
+astrometry report window will appear and if you are happy with the
+measurement, type in the object name and press <B>Accept</B>.  For
+more details about this, see
+sections&nbsp;<A HREF="node13.html#astrometry">12.3</A>&nbsp;and&nbsp;<A HREF="node13.html#report">12.4</A>.
+
+<P>
+
+<H2><A NAME="SECTION00047000000000000000">
+3.7 Markers</A>
+</H2>
+
+<P>
+Another interesting feature of <code>fitsblink</code> are markers.  You
+already saw them if you detected stars and matched them with a
+catalog.  You can find some examples of the use of markers in the file
+<code>98kd3r5-98kd3r6.inp</code>.  From the command line run 
+<code>fitsblink -i 98kd3r5-98kd3r6.inp</code> and see what happens.
+
+<P>
+This concludes the quick overview of the main <code>fitsblink</code>
+functions.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html161"
+ HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next" SRC="next_motif.gif"></A> 
+<A NAME="tex2html158"
+ HREF="fitsblink.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up" SRC="up_motif.gif"></A> 
+<A NAME="tex2html152"
+ HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous" SRC="previous_motif.gif"></A> 
+<A NAME="tex2html160"
+ HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents" SRC="contents_motif.gif"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html162"
+ HREF="node5.html">4. Starting fitsblink</A>
+<B> Up:</B> <A NAME="tex2html159"
+ HREF="fitsblink.html">Fitsblink 2.2 user manual</A>
+<B> Previous:</B> <A NAME="tex2html153"
+ HREF="node3.html">2. Installation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+<I>Jure Skvarc</I>
+<BR><I>1998-12-20</I>
+</ADDRESS>
+</BODY>
+</HTML>

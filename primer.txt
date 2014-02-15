@@ -1,0 +1,2 @@
+find /cdrom/ -name "*.fts" -exec ~/c/fits2pg/fits2pg -v -a ACIT16 -e jure.skvarc@ijs.si -m /cdrom {} \;
+./fitsfrompg -R 21:22 -D 12:25

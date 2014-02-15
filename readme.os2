@@ -1,0 +1,34 @@
+jan 28 1999.
+
+I was able to compile Fitsblink by modifying the makefile to reflect the correct paths, and using different compiler options. You must install Xforms .88  (and of course have a functioning Xfree86-OS/2 installation) and the Cfitsio142 Fits library prior to building Fitsblink.  You should also have access to the GSC 1.1 catalog on CDROM. Xforms is available in a binary distribution , which I used, while Cfitsio142  must be compiled. Fortunately it includes an OS/2 makefile ( wonder of wonders...!) and compiles easily except for the fortran routines. I don't have any experience in calling fortran from C/C++ so I omitted these. I have no doubt however, that it will be easy to compile these into the library with the OS/2 GNU fortran compiler, for someone with more programming experience than myself!
+
+After  creating the executable you can start it by executing it from an xterm command prompt.  it will create a  .fitsblinkrc file in the Xfree86 directory. You must manually  enter the path to your GSC CD-ROM in the .fitsblinkrc file (for example  f:   ) and it will read the CDROM correctly. You will not be able to use the settings menus to enter path information but the parameters and options settings will work ( remember to press enter when changing values )  You will be confined to reading the partition that XFREE86 is installed on. When you first start up Fitsblink  click on "file selector" and then "directory" clear the input field amd enter a " / " . The file load dialogs will then function correctly, except that you will be confined to one drive.   Fitsblink includes a full manual in html format so you may want to install Xmosaic as well.    All the other features on Fitsblink seem to work as indicated in the manual. SO READ IT!
+
+I have included fitsblink.exe so you (hopefully) won't have to compile it yourself.
+
+I have found that it is nessesary to try to specify the X and Y pixel size and the image rotation very precisely if you have a CCD with non square pixels for the star matching routine to work properly. 
+
+All things considered, it works pretty well!
+
+you can get the original Fitsblink archive at:
+
+http://kronos.ijs.si/~jure/fitsblink/fitsblink.html
+
+You can get Cfitsio142.zip from :
+
+ftp://legacy.gsfc.nasa.gov/software/fitsio/c/
+
+and finally you can get Xforms .88 from:
+
+http://borneo.gmd.de/~veit/os2/xf86ported.html
+
+I hope this port proves to be useful. It certainly proves that Xfree86-OS/2 is an excellent tool for making use of th rich variety of X-windows software now available.
+
+
+Last but not least, I would like to thank Jure Skvarc for producing such a high quality application.
+
+Duncan Munro
+dmunro@sfu.ca
+
+
+

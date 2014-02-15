@@ -1,0 +1,34 @@
+2.23
+Fixed small bug which caused a segmentation fault if the date was not in a one of 
+the possible formats. 
+2.22
+Fixed bug which made the aperture astronomy fail in dense fields.
+Added possibility to adjust a parameter for the autolevels function
+2.21
+Radius of the outer circle for the aperture astrometry can be now up 50.0 pixels
+2.2
+* Faster display of images (up to 4 times).
+* Automating level adjustment set to give brighter images
+* Faster star detection (1.5 - 2 times).
+* Added aperture astrometry to assure better astrometry of comets.
+* Star intensity now displayed in the zoom window.
+* Rearranged Options window.
+* Default star detection and catalog matching parameters are now read
+   from the $HOME/.fitsblinkrc file and configurable from the Settings
+   input form.
+* Resize of the blinker window is now possible and the new window
+*  dimensions can also be stored in $HOME/.fitsblinkrc to be used in next
+*  invocation of the program.
+* User manual corrected and updated.
+* Reading of the object name excluded
+2.11
+Removed a bug which caused non-detection of stars due to an uninitialized variable.
+Corrected spelling error in the Options window.
+Removed a bug which caused segmentation fault if an image was loaded from the command line and later another was tried to be loaded.
+
+2.1
+Added possibility to update the WCS values in a FITS file.
+
+2.04
+Corrected display of declination for values between 0 and -1.
+Star detection algorithm does not report the objects which are touching the edge
